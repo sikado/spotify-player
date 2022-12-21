@@ -1,15 +1,21 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import Player from '../components/organisms/Player/player';
+import { client } from '../data-access/apollo-client';
+import { ApolloProvider } from '@apollo/client';
+import './styles.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to spotify-player!</title>
+        <title>Spotify Player</title>
       </Head>
       <main className="app">
-        <Component {...pageProps} />
+        <ApolloProvider client={client}>
+          <Component {...pageProps} />
+          <Player />
+        </ApolloProvider>
       </main>
     </>
   );

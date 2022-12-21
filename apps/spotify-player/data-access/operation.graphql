@@ -1,0 +1,24 @@
+query getPlaylist {
+  playlist {
+    id
+    name
+    images {
+      url
+    }
+    tracks {
+      added_at
+      track {
+        preview_url
+        id
+        name
+        artists {
+          name
+        }
+        album {
+          name
+        }
+        popularity
+      }
+    }
+  }
+}

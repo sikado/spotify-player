@@ -57,6 +57,9 @@
       "options": {
         "lintFilePatterns": ["apps/spotify-player/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "codegen": {
+      "command": "graphql-codegen --require dotenv/config --config apps/spotify-player/codegen.ts"
     }
   },
   "tags": []
