@@ -1,11 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 
-import Index from '../pages/index';
+import NavBar from './nav-bar';
 
-describe('Index', () => {
+describe('NavBar', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Index />);
+    const { baseElement } = render(<NavBar />);
     expect(baseElement).toBeTruthy();
   });
 });
