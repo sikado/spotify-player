@@ -60,6 +60,9 @@
     },
     "codegen": {
       "command": "graphql-codegen --require dotenv/config --config apps/spotify-player/codegen.ts"
+    },
+    "component-test": {
+      "command": "cypress open --project apps/spotify-player --component --browser chrome"
     }
   },
   "tags": []
