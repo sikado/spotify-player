@@ -15,8 +15,7 @@ Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:420
 ## ToDo
 
 - Cleanup structure
-- Review Specs
-- Import CSS Framwork
+- E2E, import cypress-axe for A11y testing
 
 ## Limitation & Pref optimisation
 
