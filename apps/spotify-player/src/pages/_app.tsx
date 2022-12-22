@@ -7,7 +7,23 @@ import './styles.scss';
 import { Track } from '@/generated-types';
 
 function CustomApp({ Component, pageProps }: AppProps) {
-  const track: Track | null = null;
+  // const currentTrack: Track | null = null;
+  const currentTrack: Track = {
+    name: 'Track 1',
+    artists: [{ name: 'Various Artists', id: '' }],
+    album: {
+      name: "La compile de l'été",
+      id: '',
+      images: [
+        {
+          url: 'https://i.scdn.co/image/ab67616d0000b2732beee88e97ca512ec5542fb8',
+        },
+      ],
+    },
+    href: '',
+    duration_ms: 0,
+    id: '',
+  };
 
   return (
     <>
@@ -18,7 +34,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <main className="app">
         <ApolloProvider client={client}>
           <Component {...pageProps} />
-          {track !== null ? <Player track={track} /> : null}
+          {currentTrack !== null ? <Player track={currentTrack} /> : null}
         </ApolloProvider>
       </main>
     </>

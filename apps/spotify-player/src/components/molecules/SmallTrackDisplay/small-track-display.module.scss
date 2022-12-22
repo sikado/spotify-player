@@ -1,0 +1,9 @@
+.container {
+  display: inline-block;
+  max-width: 540px;
+
+  &.img-container {
+    position: relative;
+    height: 100%;
+  }
+}

@@ -4,9 +4,10 @@ import styles from './data-grid.module.scss';
 
 export interface DataGridProps {
   tracks: GetPlaylistQuery['playlist']['tracks'];
+  handlePlay: (trackId: string) => void;
 }
 
-export function DataGrid({ tracks }: DataGridProps) {
+export function DataGrid({ tracks, handlePlay }: DataGridProps) {
   let tBody: JSX.Element | JSX.Element[] = (
     <tr>
       <td rowSpan={5}>Playlist vide</td>
@@ -18,7 +19,11 @@ export function DataGrid({ tracks }: DataGridProps) {
     tBody = tracks
       .filter((track): track is PlaylistTrack => track !== null)
       .map((playlistTrack) => (
-        <DataRow key={playlistTrack.track.id} playlistTrack={playlistTrack} />
+        <DataRow
+          key={playlistTrack.track.id}
+          playlistTrack={playlistTrack}
+          handlePlay={handlePlay}
+        />
       ));
   }
 

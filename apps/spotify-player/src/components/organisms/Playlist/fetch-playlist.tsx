@@ -8,6 +8,10 @@ export interface FetchPlaylistProps {}
 export function FetchPlaylist() {
   const { data, loading, error } = useQuery(GetPlaylistDocument);
 
+  const handlePlay = (trackId: string) => {
+    console.log(trackId);
+  };
+
   console.log(data, loading, error);
 
   if (loading) {
@@ -27,7 +31,7 @@ export function FetchPlaylist() {
 
   const tracks = data.playlist?.tracks ?? [];
 
-  return <DataGrid tracks={tracks} />;
+  return <DataGrid tracks={tracks} handlePlay={handlePlay} />;
 }
 
 export default FetchPlaylist;
