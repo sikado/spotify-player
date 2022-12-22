@@ -3,6 +3,7 @@
     "plugin:@nrwl/nx/react-typescript",
     "next",
     "next/core-web-vitals",
+    "plugin:cypress/recommended",
     "../../.eslintrc.json"
   ],
   "ignorePatterns": ["!**/*", ".next/**/*"],
@@ -14,6 +15,12 @@
           "error",
           "apps/spotify-player/pages"
         ]
+      }
+    },
+    {
+      "files": ["*.cy.ts", "*.cy.tsx"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off"
       }
     },
     {

@@ -7,7 +7,6 @@ query getPlaylist {
     }
     tracks {
       added_at
-      name
       track {
         preview_url
         id

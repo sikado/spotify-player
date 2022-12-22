@@ -72,7 +72,7 @@ export type Track = {
 export type GetPlaylistQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPlaylistQuery = { __typename?: 'Query', playlist: { __typename?: 'Playlist', id: string, name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null, tracks?: Array<{ __typename?: 'PlaylistTrack', added_at: string, name: string, track: { __typename?: 'Track', preview_url?: string | null, id: string, name: string, popularity?: number | null, artists?: Array<{ __typename?: 'Artist', name: string } | null> | null, album?: { __typename?: 'Album', name: string } | null } } | null> | null } };
+export type GetPlaylistQuery = { __typename?: 'Query', playlist: { __typename?: 'Playlist', id: string, name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null, tracks?: Array<{ __typename?: 'PlaylistTrack', added_at: string, track: { __typename?: 'Track', preview_url?: string | null, id: string, name: string, popularity?: number | null, artists?: Array<{ __typename?: 'Artist', name: string } | null> | null, album?: { __typename?: 'Album', name: string } | null } } | null> | null } };
 
 
 export const GetPlaylistDocument = gql`
@@ -85,7 +85,6 @@ export const GetPlaylistDocument = gql`
     }
     tracks {
       added_at
-      name
       track {
         preview_url
         id

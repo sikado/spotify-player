@@ -8,7 +8,11 @@ export interface PlayButtonProps {
 export function PlayButton({ isPlaying, onClick }: PlayButtonProps) {
   return (
     <div className={styles['container']}>
-      <button className="btn btn-outline-primary" onClick={onClick}>
+      <button
+        className="btn btn-outline-primary"
+        onClick={onClick}
+        data-cy="play"
+      >
         {isPlaying ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
