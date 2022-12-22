@@ -1,4 +1,5 @@
-import { GetPlaylistQuery } from '../../../generated-types';
+import { GetPlaylistQuery, PlaylistTrack } from '../../../generated-types';
+import DataRow from '../DataRow/data-row';
 import styles from './data-grid.module.scss';
 
 export interface DataGridProps {
@@ -13,18 +14,11 @@ export function DataGrid({ tracks }: DataGridProps) {
   );
 
   if (tracks && tracks.length > 0) {
+    // @todo better typing
     tBody = tracks
-      .filter((track): track is NonNullable<typeof track> => track !== null)
-      .map(({ track, added_at }) => (
-        <tr key={track.id}>
-          <td>❤️</td>
-          <td>{track.name}</td>
-          <td>
-            {track.artists?.map((artist) => artist?.name).join(', ') ?? ''}
-          </td>
-          <td>{track.album?.name ?? ''}</td>
-          <td>{added_at}</td>
-        </tr>
+      .filter((track): track is PlaylistTrack => track !== null)
+      .map((playlistTrack) => (
+        <DataRow key={playlistTrack.track.id} playlistTrack={playlistTrack} />
       ));
   }
 
