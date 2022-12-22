@@ -10,6 +10,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Spotify Player</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className="app">
         <ApolloProvider client={client}>
