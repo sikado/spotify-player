@@ -1,5 +1,5 @@
-import { Track } from '@/generated-types';
 import { useAudio } from 'react-use';
+import { Track } from 'src/state/reducers';
 import PlayButton from '../../atoms/PlayButton/play-button';
 import SkipButton from '../../atoms/SkipButton/skip-button';
 import SmallTrackDisplay from '../../molecules/SmallTrackDisplay/small-track-display';
@@ -11,8 +11,9 @@ export interface PlayerProps {
 }
 
 export function Player({ track }: PlayerProps) {
-  const [audio, state, controls, ref] = useAudio({
-    src: track.href,
+  const [audio, state, controls] = useAudio({
+    src: track.preview_url,
+    autoPlay: true,
   });
 
   const handlePlayToggle = () => {

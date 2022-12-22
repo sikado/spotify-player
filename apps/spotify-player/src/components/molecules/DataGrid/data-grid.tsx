@@ -1,9 +1,9 @@
-import { GetPlaylistQuery, PlaylistTrack } from '@/generated-types';
+import { Track } from 'src/state/reducers';
 import DataRow from '../DataRow/data-row';
 import styles from './data-grid.module.scss';
 
 export interface DataGridProps {
-  tracks: GetPlaylistQuery['playlist']['tracks'];
+  tracks: Track[];
   handlePlay: (trackId: string) => void;
 }
 
@@ -15,16 +15,9 @@ export function DataGrid({ tracks, handlePlay }: DataGridProps) {
   );
 
   if (tracks && tracks.length > 0) {
-    // @todo better typing
-    tBody = tracks
-      .filter((track): track is PlaylistTrack => track !== null)
-      .map((playlistTrack) => (
-        <DataRow
-          key={playlistTrack.track.id}
-          playlistTrack={playlistTrack}
-          handlePlay={handlePlay}
-        />
-      ));
+    tBody = tracks.map((track) => (
+      <DataRow key={track.id} track={track} handlePlay={handlePlay} />
+    ));
   }
 
   return (
@@ -32,6 +25,7 @@ export function DataGrid({ tracks, handlePlay }: DataGridProps) {
       <table>
         <thead>
           <tr>
+            <td></td>
             <td></td>
             <td>Title</td>
             <td>Artiste</td>

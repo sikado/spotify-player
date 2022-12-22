@@ -1,24 +1,20 @@
-import { PlaylistTrack } from '@/generated-types';
+import { Track } from 'src/state/reducers';
 import styles from './data-row.module.scss';
 
 export interface DataRowProps {
-  playlistTrack: PlaylistTrack;
+  track: Track;
   handlePlay: (trackId: string) => void;
 }
 
-export function DataRow({ playlistTrack, handlePlay }: DataRowProps) {
+export function DataRow({ track, handlePlay }: DataRowProps) {
   return (
-    <tr key={playlistTrack.track.id} className={styles['container']}>
-      <td onClick={() => handlePlay(playlistTrack.track.id)}>▶️</td>
+    <tr key={track.id} className={styles['container']}>
+      <td onClick={() => handlePlay(track.id)}>▶️</td>
       <td>❤️</td>
-      <td>{playlistTrack.track.name}</td>
-      <td>
-        {playlistTrack.track.artists
-          ?.map((artist) => artist?.name)
-          .join(', ') ?? ''}
-      </td>
-      <td>{playlistTrack.track.album?.name ?? ''}</td>
-      <td>{playlistTrack.added_at}</td>
+      <td>{track.name}</td>
+      <td>{track.artists.join(', ') ?? ''}</td>
+      <td>{track.album.name}</td>
+      <td>{track.added_at}</td>
     </tr>
   );
 }
