@@ -9,21 +9,9 @@
   "include": [
     "jest.config.ts",
     "cypress.config.ts",
-    "pages/**/*.spec.ts",
-    "pages/**/*.spec.tsx",
-    "pages/**/*.cy.ts",
-    "pages/**/*.cy.tsx",
-    "components/**/*.spec.ts",
-    "components/**/*.spec.tsx",
-    "components/**/*.cy.ts",
-    "components/**/*.cy.tsx",
-    "data-access/**/*.spec.ts",
-    "data-access/**/*.spec.tsx",
-    "data-access/**/*.cy.ts",
-    "data-access/**/*.cy.tsx",
-    "utils/**/*.spec.ts",
-    "utils/**/*.spec.tsx",
-    "utils/**/*.cy.ts",
-    "utils/**/*.cy.tsx"
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.cy.ts",
+    "src/**/*.cy.tsx"
   ]
 }

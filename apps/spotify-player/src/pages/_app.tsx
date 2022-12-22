@@ -4,8 +4,11 @@ import Player from '../components/organisms/Player/player';
 import { client } from '../data-access/apollo-client';
 import { ApolloProvider } from '@apollo/client';
 import './styles.scss';
+import { Track } from '@/generated-types';
 
 function CustomApp({ Component, pageProps }: AppProps) {
+  const track: Track | null = null;
+
   return (
     <>
       <Head>
@@ -15,7 +18,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <main className="app">
         <ApolloProvider client={client}>
           <Component {...pageProps} />
-          <Player />
+          {track !== null ? <Player track={track} /> : null}
         </ApolloProvider>
       </main>
     </>

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import DataGrid from '../../molecules/DataGrid/data-grid';
-import { GetPlaylistDocument } from '../../../generated-types';
+import { GetPlaylistDocument } from '@/generated-types';
 
 /* eslint-disable-next-line */
 export interface FetchPlaylistProps {}

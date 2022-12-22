@@ -1,4 +1,4 @@
-import { GetPlaylistQuery, PlaylistTrack } from '../../../generated-types';
+import { GetPlaylistQuery, PlaylistTrack } from '@/generated-types';
 import DataRow from '../DataRow/data-row';
 import styles from './data-grid.module.scss';
 

@@ -1,4 +1,4 @@
-import { PlaylistTrack } from '../../../generated-types';
+import { PlaylistTrack } from '@/generated-types';
 import styles from './data-row.module.scss';
 
 export interface DataRowProps {

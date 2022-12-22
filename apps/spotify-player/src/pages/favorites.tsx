@@ -1,4 +1,3 @@
-import Player from '../components/organisms/Player/player';
 import Hero from '../components/molecules/Hero/hero';
 import NavBar from '../components/molecules/NavBar/nav-bar';
 import styles from './favorites.module.scss';

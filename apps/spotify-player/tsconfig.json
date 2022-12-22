@@ -11,19 +11,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "types": ["jest", "node", "cypress"]
+    "types": ["jest", "node", "cypress"],
+    "baseUrl": ".",
+    "paths": {
+      "@/generated-types": ["generated-types.ts"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "./cypress.d.ts",
-    "pages/**/*.ts",
-    "pages/**/*.tsx",
-    "components/**/*.ts",
-    "components/**/*.tsx",
-    "data-access/**/*.ts",
-    "data-access/**/*.tsx",
-    "utils/**/*.ts",
-    "utils/**/*.tsx"
-  ],
+  "include": ["next-env.d.ts", "./cypress.d.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "jest.config.ts", "cypress.config.ts"]
 }

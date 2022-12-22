@@ -1,14 +1,18 @@
+import { Track } from '@/generated-types';
 import { useAudio } from 'react-use';
 import PlayButton from '../../atoms/PlayButton/play-button';
 import SkipButton from '../../atoms/SkipButton/skip-button';
+import SmallTrackDisplay from '../../molecules/SmallTrackDisplay/small-track-display';
 import styles from './player.module.scss';
 
 /* eslint-disable-next-line */
-export interface PlayerProps {}
+export interface PlayerProps {
+  track: Track;
+}
 
-export function Player(props: PlayerProps) {
+export function Player({ track }: PlayerProps) {
   const [audio, state, controls, ref] = useAudio({
-    src: 'https://p.scdn.co/mp3-preview/3ac3740881839bbc955b9f32809bb452779e6b00?cid=b644138492164b009229f271bdc7b751',
+    src: track.href,
   });
 
   const handlePlayToggle = () => {
@@ -25,6 +29,7 @@ export function Player(props: PlayerProps) {
       <h3>
         {state.time} / {state.duration}
       </h3>
+      <SmallTrackDisplay track={track} />
       <SkipButton direction="prev" canSkip={false} onClick={handleSkip} />
       <PlayButton isPlaying={state.playing} onClick={handlePlayToggle} />
       <SkipButton direction="next" canSkip={false} onClick={handleSkip} />
