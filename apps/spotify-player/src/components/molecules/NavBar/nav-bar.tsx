@@ -11,7 +11,7 @@ export function NavBar(props: NavBarProps) {
         <Link href="/">Playlist</Link>
       </div>
       <div className="nav-item">
-        <Link href="/favorites">Likes</Link>
+        <Link href="/favorites">Favorites</Link>
       </div>
     </nav>
   );

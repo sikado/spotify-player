@@ -1,6 +1,6 @@
-import { Track } from '@/generated-types';
 import styles from './small-track-display.module.scss';
 import Image from 'next/image';
+import { Track } from 'src/state/reducers';
 
 /* eslint-disable-next-line */
 export interface SmallTrackDisplayProps {
@@ -8,9 +8,8 @@ export interface SmallTrackDisplayProps {
 }
 
 export function SmallTrackDisplay({ track }: SmallTrackDisplayProps) {
-  const albumCoverSrc: string | null = track.album?.images?.[0]?.url ?? null;
-  const displayArtists =
-    track.artists?.map((artist) => artist?.name).join(', ') ?? '';
+  const albumCoverSrc: string | null = track.album.imageUrl ?? null;
+  const displayArtists = track.artists.join(', ');
 
   return (
     <div className={styles.container + ' card border-0'}>

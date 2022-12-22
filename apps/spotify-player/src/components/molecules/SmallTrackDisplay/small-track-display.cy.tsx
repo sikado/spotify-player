@@ -1,14 +1,14 @@
-import { Track } from '@/generated-types';
+import { Track } from 'src/state/reducers';
 import SmallTrackDisplay from './small-track-display';
 
 describe('<SmallTrackDisplay />', () => {
   const track: Track = {
     name: 'Track 1',
-    artists: [{ name: 'Various Artists', id: '' }],
-    album: { name: "La compile de l'été", id: '' },
-    href: '',
-    duration_ms: 0,
+    artists: ['Various Artists'],
+    album: { name: "La compile de l'été" },
+    preview_url: '',
     id: '',
+    added_at: '',
   };
 
   it('should render successfully', () => {
@@ -19,12 +19,9 @@ describe('<SmallTrackDisplay />', () => {
     const customTrack = {
       ...track,
       album: {
-        ...track.album!,
-        images: [
-          {
-            url: 'https://i.scdn.co/image/ab67616d0000b2732beee88e97ca512ec5542fb8',
-          },
-        ],
+        ...track.album,
+        imageUrl:
+          'https://i.scdn.co/image/ab67616d0000b2732beee88e97ca512ec5542fb8',
       },
     };
 
@@ -34,7 +31,7 @@ describe('<SmallTrackDisplay />', () => {
     cy.get('[data-cy="cover"]').should(
       'have.attr',
       'src',
-      customTrack.album!.images![0]!.url
+      customTrack.album.imageUrl
     );
   });
 });
