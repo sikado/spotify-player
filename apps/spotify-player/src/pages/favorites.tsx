@@ -1,6 +1,10 @@
 import DataGrid from 'src/components/molecules/DataGrid/data-grid';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks';
-import { playTrack, selectFavoritesTracks } from 'src/state/reducers';
+import {
+  playTrack,
+  selectFavoritesTracks,
+  toggleFavoriteTrack,
+} from 'src/state/reducers';
 import Hero from '../components/molecules/Hero/hero';
 import styles from './favorites.module.scss';
 
@@ -22,6 +26,9 @@ export function Favorites(props: FavoritesProps) {
           tracks={favoritesTracks}
           handlePlay={(trackId) => {
             dispatch(playTrack(trackId));
+          }}
+          handleFav={(trackId) => {
+            dispatch(toggleFavoriteTrack(trackId));
           }}
         />
       )}

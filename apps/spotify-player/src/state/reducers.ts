@@ -79,23 +79,22 @@ export const mainSlice = createSlice({
       })
   },
   reducers: {
-    "addFavoriteTrack": (state, action: PayloadAction<string>) => {
-      const likedTracks = new Set(state.favoritesTracksIds);
+    "toggleFavoriteTrack": (state, action: PayloadAction<string>): MainState => {
+      const favoritesTracksIds = new Set(state.favoritesTracksIds);
 
-      // Only add track to favorites if it exists
-      const track = state.playlist?.tracks.find(track => track.id === action.payload)
-      if (track) {
-        likedTracks.add(action.payload)
+      // If the track is already liked
+      if (favoritesTracksIds.has(action.payload)) {
+        favoritesTracksIds.delete(action.payload)
+      } else {
+        // Only add track to favorites if it exists
+        if (state.playlist?.tracks.find(track => track.id === action.payload)) {
+          favoritesTracksIds.add(action.payload)
+        }
       }
 
-      return { ...state, likedTracks: Array.from(likedTracks) }
+      return { ...state, favoritesTracksIds: Array.from(favoritesTracksIds) }
     },
-    "delFavoriteTrack": (state, action: PayloadAction<string>) => {
-      const likedTracks = new Set(state.favoritesTracksIds);
-      likedTracks.delete(action.payload)
-      return { ...state, likedTracks: Array.from(likedTracks) }
-    },
-    "playTrack": (state, action: PayloadAction<string>) => {
+    "playTrack": (state, action: PayloadAction<string>): MainState => {
       const playingTrack = state.playlist?.tracks.find(track => track.id === action.payload);
 
       if (playingTrack) {
@@ -110,12 +109,12 @@ export const mainSlice = createSlice({
         }
       }
     },
-    "playNextTrack": (state) => {
+    "playNextTrack": (state): MainState => {
       // @todo
       throw new Error('🚧 Work in progress');
       return state;
     },
-    "playPrevTrack": (state) => {
+    "playPrevTrack": (state): MainState => {
       // @todo
       throw new Error('🚧 Work in progress');
       return state;
@@ -124,17 +123,24 @@ export const mainSlice = createSlice({
 })
 
 // Actions
-export const { addFavoriteTrack, delFavoriteTrack, playNextTrack, playPrevTrack, playTrack } = mainSlice.actions
+export const { toggleFavoriteTrack, playNextTrack, playPrevTrack, playTrack } = mainSlice.actions
 
 // Selector
-export const selectTracks = (state: RootState) => {
-  // @todo add favorite flag
-  return state.main.playlist?.tracks
-}
-
-export const selectMainState = (state: RootState) => {
+const selectMainState = (state: RootState) => {
   return state.main
 }
+
+export const selectPlaylistInfo = createSelector([selectMainState], ({ playlist }) => {
+  if (playlist) {
+    return { name: playlist.name, id: playlist.id, imageUrl: playlist.imageUrl }
+  } else {
+    return null
+  }
+})
+
+export const selectTracks = createSelector([selectMainState], ({ playlist, favoritesTracksIds }) => {
+  return playlist?.tracks.map(track => ({ ...track, isLiked: favoritesTracksIds.includes(track.id) }))
+})
 
 export const selectPlayingTrack = createSelector([selectTracks, selectMainState], (tracks, { playingTrackId }) => {
 
@@ -147,8 +153,8 @@ export const selectPlayingTrack = createSelector([selectTracks, selectMainState]
   return playingTrack
 });
 
-export const selectFavoritesTracks = createSelector([selectTracks, selectMainState], (tracks, { favoritesTracksIds }) => {
-  return tracks?.filter(track => favoritesTracksIds.includes(track.id))
+export const selectFavoritesTracks = createSelector(selectTracks, (tracks) => {
+  return tracks?.filter(track => track.isLiked)
 });
 
 

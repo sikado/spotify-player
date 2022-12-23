@@ -3,11 +3,12 @@ import DataRow from '../DataRow/data-row';
 import styles from './data-grid.module.scss';
 
 export interface DataGridProps {
-  tracks: Track[];
+  tracks: (Track & { isLiked: boolean })[];
   handlePlay: (trackId: string) => void;
+  handleFav: (trackId: string) => void;
 }
 
-export function DataGrid({ tracks, handlePlay }: DataGridProps) {
+export function DataGrid({ tracks, handlePlay, handleFav }: DataGridProps) {
   let tBody: JSX.Element | JSX.Element[] = (
     <tr>
       <td rowSpan={5}>Playlist vide</td>
@@ -16,7 +17,12 @@ export function DataGrid({ tracks, handlePlay }: DataGridProps) {
 
   if (tracks && tracks.length > 0) {
     tBody = tracks.map((track) => (
-      <DataRow key={track.id} track={track} handlePlay={handlePlay} />
+      <DataRow
+        key={track.id}
+        track={track}
+        handlePlay={handlePlay}
+        handleFav={handleFav}
+      />
     ));
   }
 
