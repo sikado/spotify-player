@@ -13,7 +13,7 @@ export interface PlayerProps {
 export function Player({ track }: PlayerProps) {
   const [audio, state, controls] = useAudio({
     src: track.preview_url,
-    autoPlay: true,
+    autoPlay: false,
   });
 
   const handlePlayToggle = () => {
@@ -25,15 +25,31 @@ export function Player({ track }: PlayerProps) {
   };
 
   return (
-    <div className={styles['container']}>
+    <div className={styles['container'] + ' row align-items-center'}>
       <div>{audio}</div>
-      <h3>
-        {state.time} / {state.duration}
-      </h3>
-      <SmallTrackDisplay track={track} />
-      <SkipButton direction="prev" canSkip={false} onClick={handleSkip} />
-      <PlayButton isPlaying={state.playing} onClick={handlePlayToggle} />
-      <SkipButton direction="next" canSkip={false} onClick={handleSkip} />
+      <div className="col-auto">
+        <SkipButton direction="prev" canSkip={false} onClick={handleSkip} />
+        <PlayButton isPlaying={state.playing} onClick={handlePlayToggle} />
+        <SkipButton direction="next" canSkip={false} onClick={handleSkip} />
+      </div>
+      <div className="col-4">
+        <small>{Math.floor(state.time)}s</small>
+        <div className="progress" style={{ height: '1px' }}>
+          <div
+            className="progress-bar"
+            role="progressbar"
+            aria-label="track progress"
+            style={{ width: (state.time / state.duration) * 100 + '%' }}
+            aria-valuenow={state.time}
+            aria-valuemin={0}
+            aria-valuemax={state.duration}
+          ></div>
+        </div>
+        <small>{Math.floor(state.duration)}s</small>
+      </div>
+      <div className="col-auto ms-auto">
+        <SmallTrackDisplay track={track} />
+      </div>
     </div>
   );
 }

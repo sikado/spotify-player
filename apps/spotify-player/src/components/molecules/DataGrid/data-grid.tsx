@@ -22,15 +22,15 @@ export function DataGrid({ tracks, handlePlay }: DataGridProps) {
 
   return (
     <div className={styles['container']}>
-      <table>
+      <table className="table table-hover table-dark">
         <thead>
           <tr>
-            <td></td>
-            <td></td>
-            <td>Title</td>
-            <td>Artiste</td>
-            <td>Album</td>
-            <td>Date</td>
+            <td scope="col"></td>
+            <td scope="col"></td>
+            <td scope="col">Title</td>
+            <td scope="col">Artiste</td>
+            <td scope="col">Album</td>
+            <td scope="col">Date</td>
           </tr>
         </thead>
         <tbody>{tBody}</tbody>

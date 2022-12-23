@@ -3,8 +3,8 @@ import Head from 'next/head';
 import './styles.scss';
 import { Provider } from 'react-redux';
 import { store } from 'src/state/store';
-import { PlayerTemplate } from 'src/components/templates/player-template';
 import { fetchOncePlaylist } from 'src/state/reducers';
+import Layout from 'src/components/templates/layout';
 
 store.dispatch(fetchOncePlaylist());
 
@@ -15,12 +15,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Spotify Player</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main className="app">
-        <Provider store={store}>
+      <Provider store={store}>
+        <Layout>
           <Component {...pageProps} />
-          <PlayerTemplate />
-        </Provider>
-      </main>
+        </Layout>
+      </Provider>
     </>
   );
 }

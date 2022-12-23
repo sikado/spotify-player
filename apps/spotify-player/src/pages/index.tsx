@@ -24,10 +24,9 @@ export function Index() {
           ) : (
             <>
               <Hero name={playlist.name} imageUrl={playlist.imageUrl} />
-              <DataGrid tracks={playlist.tracks} handlePlay={handlePlay} />;
+              <DataGrid tracks={playlist.tracks} handlePlay={handlePlay} />
             </>
           )}
-          <NavBar />
         </div>
       </div>
     </div>

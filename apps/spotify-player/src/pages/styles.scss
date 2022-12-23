@@ -1,8 +1,20 @@
 // Include any default variable overrides here (though functions won't be available)
 
+// $eerie-black-2: rgba(25, 25, 25, 1);
+$dark: rgba(19, 19, 19, 1);
+$secondary: rgba(120, 120, 120, 1);
+$danger: rgba(255, 118, 95, 1);
+$white: rgba(255, 255, 255, 1);
+$primary: white;
+
 @import '../../../../node_modules/bootstrap/scss/bootstrap';
 
 // Then add additional custom code here
+
+body {
+  color: white;
+  background-color: $dark;
+}
 
 .bi {
   display: inline-block;

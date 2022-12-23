@@ -8,12 +8,23 @@ export interface HeroProps {
 
 export function Hero({ name, imageUrl }: HeroProps) {
   return (
-    <div className={styles['container']}>
-      <h1>Playlist {name}</h1>
-      <div className="cover">
-        {imageUrl ? (
-          <Image src={imageUrl} width={240} height={240} alt="Playlist cover" />
-        ) : null}
+    <div className={styles['container'] + ' row'}>
+      <div className="col-auto">
+        <div className="cover">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              width={120}
+              height={120}
+              alt="Playlist cover"
+            />
+          ) : null}
+        </div>
+      </div>
+      <div className="col">
+        <small className="text-muted">Playlist</small>
+        <h1>{name}</h1>
+        <button className="btn btn-outline-primary btn-sm">Play</button>
       </div>
     </div>
   );

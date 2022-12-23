@@ -2,7 +2,6 @@ import DataGrid from 'src/components/molecules/DataGrid/data-grid';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks';
 import { playTrack, selectFavoritesTracks } from 'src/state/reducers';
 import Hero from '../components/molecules/Hero/hero';
-import NavBar from '../components/molecules/NavBar/nav-bar';
 import styles from './favorites.module.scss';
 
 /* eslint-disable-next-line */
@@ -26,7 +25,6 @@ export function Favorites(props: FavoritesProps) {
           }}
         />
       )}
-      <NavBar />
     </div>
   );
 }
