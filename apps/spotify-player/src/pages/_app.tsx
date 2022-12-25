@@ -3,10 +3,7 @@ import Head from 'next/head';
 import './styles.scss';
 import { Provider } from 'react-redux';
 import { store } from 'src/state/store';
-import { fetchOncePlaylist } from 'src/state/reducers';
 import Layout from 'src/components/templates/layout';
-
-store.dispatch(fetchOncePlaylist());
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
