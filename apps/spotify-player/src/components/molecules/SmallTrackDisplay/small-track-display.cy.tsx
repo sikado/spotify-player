@@ -1,4 +1,4 @@
-import { Track } from 'src/state/reducers';
+import { Track } from 'src/services/playlist';
 import SmallTrackDisplay from './small-track-display';
 
 describe('<SmallTrackDisplay />', () => {

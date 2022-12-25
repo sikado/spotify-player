@@ -1,7 +1,6 @@
 query getPlaylist {
   playlist {
     id
-    name
     images {
       url
     }

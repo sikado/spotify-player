@@ -1,6 +1,6 @@
 import styles from './small-track-display.module.scss';
 import Image from 'next/image';
-import { Track } from 'src/state/reducers';
+import { Track } from 'src/services/playlist';
 
 /* eslint-disable-next-line */
 export interface SmallTrackDisplayProps {

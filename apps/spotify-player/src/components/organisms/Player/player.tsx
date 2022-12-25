@@ -1,5 +1,5 @@
 import { useAudio } from 'react-use';
-import { Track } from 'src/state/reducers';
+import { Track } from 'src/services/playlist';
 import PlayButton from '../../atoms/PlayButton/play-button';
 import SkipButton from '../../atoms/SkipButton/skip-button';
 import SmallTrackDisplay from '../../molecules/SmallTrackDisplay/small-track-display';

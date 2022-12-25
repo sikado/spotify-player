@@ -1,25 +1,7 @@
-import { GetPlaylistDocument, gql_GetPlaylistQuery } from "@/generated-types";
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { client } from "src/data-access/apollo-client";
+import { fetchFavoritesIds, saveFavoritesIds } from "src/services/favorites/fetchFavorites";
+import { fetchPlaylist, Playlist } from "src/services/playlist";
 import { RootState } from "./store";
-
-export interface Album { name: string, imageUrl?: string }
-
-export interface Playlist {
-  id: string;
-  name: string;
-  imageUrl?: string;
-  tracks: Track[]
-}
-
-export interface Track {
-  name: string,
-  added_at: string;
-  id: string;
-  preview_url: string;
-  artists: string[];
-  album: Album;
-}
 
 export interface MainState {
   playlist: Playlist | null,
@@ -35,35 +17,30 @@ const initialState: MainState = {
   playingTrackId: null
 }
 
-export const fetchOncePlaylist = createAsyncThunk('mainState/fetchPlaylist',
-  async () => {
+export const fetchOncePlaylist = createAsyncThunk(
+  'mainState/fetchPlaylist',
+  fetchPlaylist
+)
 
-    const { data } = await client.query<gql_GetPlaylistQuery>({
-      query: GetPlaylistDocument,
-    })
+export const fetchFavorites = createAsyncThunk('mainState/fetchFavoritesIds', fetchFavoritesIds)
 
-    const playlist: Playlist = {
-      id: data.playlist.id,
-      name: data.playlist.name,
-      imageUrl: data.playlist.images?.[0]?.url,
-      tracks: data.playlist.tracks?.reduce<Track[]>((acc, playlistTrack) => {
-        // Filtering out every playlistTracks without track and without preview_url
-        if (playlistTrack?.track != null && playlistTrack.track.preview_url) {
-          acc.push({
-            name: playlistTrack.track.name,
-            added_at: playlistTrack.added_at,
-            album: { name: playlistTrack.track.album?.name ?? '', imageUrl: playlistTrack.track.album?.images?.[0]?.url },
-            artists: playlistTrack.track.artists?.reduce<string[]>((acc, artist) => { if (artist != null) { acc.push(artist.name); } return acc }, []) ?? [],
-            id: playlistTrack.track.id,
-            preview_url: playlistTrack.track.preview_url
-          });
-        }
-        return acc;
+export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: MainState }>('mainState/toggleFavoriteTrack', async (toggledTrackId, { getState }) => {
+  const favoritesTracksIds = new Set(getState().favoritesTracksIds);
 
-      }, []) ?? []
+  // If the track is already liked
+  if (favoritesTracksIds.has(toggledTrackId)) {
+    favoritesTracksIds.delete(toggledTrackId)
+  } else {
+    // Only add track to favorites if it exists
+    if (getState().playlist?.tracks.find(track => track.id === toggledTrackId)) {
+      favoritesTracksIds.add(toggledTrackId)
     }
-    return playlist;
-  })
+  }
+
+  await saveFavoritesIds(Array.from(favoritesTracksIds));
+
+  return Array.from(favoritesTracksIds)
+})
 
 export const mainSlice = createSlice({
   name: 'mainState',
@@ -77,23 +54,12 @@ export const mainSlice = createSlice({
         console.error(action.error)
         return { ...state, isLoading: false, playlist: null }
       })
+      .addCase(fetchFavorites.fulfilled, (state, { payload }) =>
+        ({ ...state, favoritesTracksIds: payload }))
+      .addCase(toggleFavoriteTrack.fulfilled, (state, { payload }) =>
+        ({ ...state, favoritesTracksIds: payload }));
   },
   reducers: {
-    "toggleFavoriteTrack": (state, action: PayloadAction<string>): MainState => {
-      const favoritesTracksIds = new Set(state.favoritesTracksIds);
-
-      // If the track is already liked
-      if (favoritesTracksIds.has(action.payload)) {
-        favoritesTracksIds.delete(action.payload)
-      } else {
-        // Only add track to favorites if it exists
-        if (state.playlist?.tracks.find(track => track.id === action.payload)) {
-          favoritesTracksIds.add(action.payload)
-        }
-      }
-
-      return { ...state, favoritesTracksIds: Array.from(favoritesTracksIds) }
-    },
     "playTrack": (state, action: PayloadAction<string>): MainState => {
       const playingTrack = state.playlist?.tracks.find(track => track.id === action.payload);
 
@@ -123,7 +89,7 @@ export const mainSlice = createSlice({
 })
 
 // Actions
-export const { toggleFavoriteTrack, playNextTrack, playPrevTrack, playTrack } = mainSlice.actions
+export const { playNextTrack, playPrevTrack, playTrack } = mainSlice.actions
 
 // Selector
 const selectMainState = (state: RootState) => {

@@ -1,4 +1,4 @@
-import { Track } from 'src/state/reducers';
+import { Track } from 'src/services/playlist';
 import styles from './data-row.module.scss';
 
 export interface DataRowProps {
