@@ -24,23 +24,25 @@ export const fetchOncePlaylist = createAsyncThunk(
 
 export const fetchFavorites = createAsyncThunk('mainState/fetchFavoritesIds', fetchFavoritesIds)
 
-export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: MainState }>('mainState/toggleFavoriteTrack', async (toggledTrackId, { getState }) => {
-  const favoritesTracksIds = new Set(getState().favoritesTracksIds);
+export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: { main: MainState } }>(
+  'mainState/toggleFavoriteTrack',
+  async (toggledTrackId, { getState }) => {
+    const favoritesTracksIds = new Set(getState().main.favoritesTracksIds);
 
-  // If the track is already liked
-  if (favoritesTracksIds.has(toggledTrackId)) {
-    favoritesTracksIds.delete(toggledTrackId)
-  } else {
-    // Only add track to favorites if it exists
-    if (getState().playlist?.tracks.find(track => track.id === toggledTrackId)) {
-      favoritesTracksIds.add(toggledTrackId)
+    // If the track is already liked
+    if (favoritesTracksIds.has(toggledTrackId)) {
+      favoritesTracksIds.delete(toggledTrackId)
+    } else {
+      // Only add track to favorites if it exists
+      if (getState().main.playlist?.tracks.find(track => track.id === toggledTrackId)) {
+        favoritesTracksIds.add(toggledTrackId)
+      }
     }
-  }
 
-  await saveFavoritesIds(Array.from(favoritesTracksIds));
+    await saveFavoritesIds(Array.from(favoritesTracksIds));
 
-  return Array.from(favoritesTracksIds)
-})
+    return Array.from(favoritesTracksIds)
+  })
 
 export const mainSlice = createSlice({
   name: 'mainState',
