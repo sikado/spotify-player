@@ -10,7 +10,7 @@ export function SkipButton({ direction, canSkip, onClick }: SkipButtonProps) {
   return (
     <div className={styles['container']}>
       <button
-        className="btn btn-link text-white btn-lg"
+        className="btn btn-link text-white btn-sm"
         disabled={!canSkip}
         data-cy="button"
         onClick={onClick}

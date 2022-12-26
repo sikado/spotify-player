@@ -26,7 +26,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="app">
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ marginBottom: 150 }}>
         {children}
         <div className="fixed-bottom">
           {player}

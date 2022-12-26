@@ -9,7 +9,7 @@ export function PlayButton({ isPlaying, onClick }: PlayButtonProps) {
   return (
     <div className={styles['container']}>
       <button
-        className="btn btn-link text-danger btn-lg"
+        className="btn btn-link text-primary btn-sm"
         onClick={onClick}
         data-cy="play"
       >
