@@ -4,9 +4,10 @@ import styles from './hero.module.scss';
 export interface HeroProps {
   name: string;
   imageUrl?: string;
+  handlePlayAll: () => void;
 }
 
-export function Hero({ name, imageUrl }: HeroProps) {
+export function Hero({ name, imageUrl, handlePlayAll }: HeroProps) {
   return (
     <header className={styles['container'] + ' row'}>
       <div className="col-auto">
@@ -24,7 +25,12 @@ export function Hero({ name, imageUrl }: HeroProps) {
       <div className="col">
         <small className="text-muted">Playlist</small>
         <h1>{name}</h1>
-        <button className="btn btn-outline-primary btn-sm">Play</button>
+        <button
+          className="btn btn-outline-primary btn-sm"
+          onClick={handlePlayAll}
+        >
+          Play
+        </button>
       </div>
     </header>
   );

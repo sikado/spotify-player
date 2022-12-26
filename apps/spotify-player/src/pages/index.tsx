@@ -23,7 +23,15 @@ export function Index() {
         <h2>Loading...</h2>
       ) : (
         <>
-          <Hero name={playlist.name} imageUrl={playlist.imageUrl} />
+          <Hero
+            name={playlist.name}
+            imageUrl={playlist.imageUrl}
+            handlePlayAll={() => {
+              if (tracks.length > 0) {
+                dispatch(playTrack(tracks[0].id));
+              }
+            }}
+          />
           <main>
             <DataGrid
               tracks={tracks}

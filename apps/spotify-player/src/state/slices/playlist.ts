@@ -77,7 +77,7 @@ export const playlistSlice = createSlice({
 
       const nextTrackIndex = trackIds?.indexOf(action.payload);
 
-      if (trackIds && nextTrackIndex) {
+      if (trackIds != null && nextTrackIndex != null) {
         return {
           ...state,
           playingTrackIds: trackIds.slice(nextTrackIndex)
