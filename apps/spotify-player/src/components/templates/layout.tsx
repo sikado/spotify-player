@@ -4,7 +4,7 @@ import {
   fetchFavorites,
   fetchOncePlaylist,
   selectPlayingTrack,
-} from 'src/state/reducers';
+} from 'src/state/slices/playlist';
 import NavBar from '../molecules/NavBar/nav-bar';
 import Player from '../organisms/Player/player';
 
@@ -14,19 +14,20 @@ export function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
     dispatch(fetchOncePlaylist());
     dispatch(fetchFavorites());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   const playingTrack = useAppSelector(selectPlayingTrack);
   let player: ReactNode | null = null;
+  let marginBottom = 50;
 
   if (playingTrack != null) {
     player = <Player track={playingTrack} />;
+    marginBottom = 150;
   }
 
   return (
     <div className="app">
-      <div className="container-fluid" style={{ marginBottom: 150 }}>
+      <div className="container-fluid" style={{ marginBottom }}>
         {children}
         <div className="fixed-bottom">
           {player}
