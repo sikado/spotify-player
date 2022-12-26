@@ -1,16 +1,18 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchFavoritesIds, saveFavoritesIds } from "src/services/favorites/fetchFavorites";
 import { fetchPlaylist, Playlist } from "src/services/playlist";
-import { RootState } from "./store";
+import { RootState } from "../store";
 
-export interface MainState {
+export const SLICE_NAME = "playlist"
+
+export interface PlaylistState {
   playlist: Playlist | null,
   isLoading: boolean,
   favoritesTracksIds: string[],
   playingTrackId: string | null,
 }
 
-const initialState: MainState = {
+const initialState: PlaylistState = {
   playlist: null,
   isLoading: false,
   favoritesTracksIds: [],
@@ -18,23 +20,25 @@ const initialState: MainState = {
 }
 
 export const fetchOncePlaylist = createAsyncThunk(
-  'mainState/fetchPlaylist',
+  SLICE_NAME + '/fetchPlaylist',
   fetchPlaylist
 )
 
-export const fetchFavorites = createAsyncThunk('mainState/fetchFavoritesIds', fetchFavoritesIds)
+export const fetchFavorites = createAsyncThunk(SLICE_NAME + '/fetchFavoritesIds', fetchFavoritesIds)
 
-export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: { main: MainState } }>(
-  'mainState/toggleFavoriteTrack',
+export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: { plalistSlice: PlaylistState } }>(
+  SLICE_NAME + '/toggleFavoriteTrack',
   async (toggledTrackId, { getState }) => {
-    const favoritesTracksIds = new Set(getState().main.favoritesTracksIds);
+    const localState = getState().plalistSlice
+
+    const favoritesTracksIds = new Set(localState.favoritesTracksIds);
 
     // If the track is already liked
     if (favoritesTracksIds.has(toggledTrackId)) {
       favoritesTracksIds.delete(toggledTrackId)
     } else {
       // Only add track to favorites if it exists
-      if (getState().main.playlist?.tracks.find(track => track.id === toggledTrackId)) {
+      if (localState.playlist?.tracks.find(track => track.id === toggledTrackId)) {
         favoritesTracksIds.add(toggledTrackId)
       }
     }
@@ -44,8 +48,8 @@ export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: {
     return Array.from(favoritesTracksIds)
   })
 
-export const mainSlice = createSlice({
-  name: 'mainState',
+export const playlistSlice = createSlice({
+  name: SLICE_NAME,
   initialState,
   extraReducers: (builder) => {
     builder
@@ -59,10 +63,15 @@ export const mainSlice = createSlice({
       .addCase(fetchFavorites.fulfilled, (state, { payload }) =>
         ({ ...state, favoritesTracksIds: payload }))
       .addCase(toggleFavoriteTrack.fulfilled, (state, { payload }) =>
-        ({ ...state, favoritesTracksIds: payload }));
+        ({ ...state, favoritesTracksIds: payload }))
+      .addCase(toggleFavoriteTrack.rejected, (state, { error }) => {
+        console.error(error);
+
+        return state;
+      });
   },
   reducers: {
-    "playTrack": (state, action: PayloadAction<string>): MainState => {
+    "playTrack": (state, action: PayloadAction<string>): PlaylistState => {
       const playingTrack = state.playlist?.tracks.find(track => track.id === action.payload);
 
       if (playingTrack) {
@@ -77,12 +86,12 @@ export const mainSlice = createSlice({
         }
       }
     },
-    "playNextTrack": (state): MainState => {
+    "playNextTrack": (state): PlaylistState => {
       // @todo
       throw new Error('🚧 Work in progress');
       return state;
     },
-    "playPrevTrack": (state): MainState => {
+    "playPrevTrack": (state): PlaylistState => {
       // @todo
       throw new Error('🚧 Work in progress');
       return state;
@@ -91,14 +100,14 @@ export const mainSlice = createSlice({
 })
 
 // Actions
-export const { playNextTrack, playPrevTrack, playTrack } = mainSlice.actions
+export const { playNextTrack, playPrevTrack, playTrack } = playlistSlice.actions
 
 // Selector
-const selectMainState = (state: RootState) => {
-  return state.main
+const selectPlaylistSlice = (state: RootState) => {
+  return state.plalistSlice
 }
 
-export const selectPlaylistInfo = createSelector([selectMainState], ({ playlist }) => {
+export const selectPlaylistInfo = createSelector([selectPlaylistSlice], ({ playlist }) => {
   if (playlist) {
     return { name: playlist.name, id: playlist.id, imageUrl: playlist.imageUrl }
   } else {
@@ -106,11 +115,11 @@ export const selectPlaylistInfo = createSelector([selectMainState], ({ playlist 
   }
 })
 
-export const selectTracks = createSelector([selectMainState], ({ playlist, favoritesTracksIds }) => {
+export const selectTracks = createSelector([selectPlaylistSlice], ({ playlist, favoritesTracksIds }) => {
   return playlist?.tracks.map(track => ({ ...track, isLiked: favoritesTracksIds.includes(track.id) }))
 })
 
-export const selectPlayingTrackId = createSelector([selectMainState], ({ playingTrackId }) => playingTrackId)
+export const selectPlayingTrackId = createSelector([selectPlaylistSlice], ({ playingTrackId }) => playingTrackId)
 
 export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTrackId], (tracks, playingTrackId) => {
 
@@ -129,4 +138,4 @@ export const selectFavoritesTracks = createSelector(selectTracks, (tracks) => {
 
 
 
-export default mainSlice.reducer
+export default playlistSlice.reducer

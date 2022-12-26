@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import mainSlice from "./reducers";
+import playlistSlice from "./slices/playlist";
 
 export const store = configureStore({
   reducer: {
-    main: mainSlice
+    plalistSlice: playlistSlice
   }
 })
 

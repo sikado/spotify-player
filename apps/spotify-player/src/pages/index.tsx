@@ -7,7 +7,7 @@ import {
   selectPlaylistInfo,
   selectTracks,
   toggleFavoriteTrack,
-} from 'src/state/reducers';
+} from 'src/state/slices/playlist';
 import DataGrid from 'src/components/molecules/DataGrid/data-grid';
 
 export function Index() {

@@ -4,7 +4,7 @@ import {
   playTrack,
   selectFavoritesTracks,
   toggleFavoriteTrack,
-} from 'src/state/reducers';
+} from 'src/state/slices/playlist';
 import Hero from '../components/molecules/Hero/hero';
 import styles from './favorites.module.scss';
 
