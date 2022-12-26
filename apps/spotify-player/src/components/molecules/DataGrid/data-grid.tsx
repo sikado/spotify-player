@@ -4,14 +4,20 @@ import styles from './data-grid.module.scss';
 
 export interface DataGridProps {
   tracks: (Track & { isLiked: boolean })[];
+  playingTrackId: string | null;
   handlePlay: (trackId: string) => void;
   handleFav: (trackId: string) => void;
 }
 
-export function DataGrid({ tracks, handlePlay, handleFav }: DataGridProps) {
+export function DataGrid({
+  tracks,
+  playingTrackId,
+  handlePlay,
+  handleFav,
+}: DataGridProps) {
   let tBody: JSX.Element | JSX.Element[] = (
     <tr>
-      <td rowSpan={5}>Playlist vide</td>
+      <th rowSpan={5}>Playlist vide</th>
     </tr>
   );
 
@@ -20,6 +26,7 @@ export function DataGrid({ tracks, handlePlay, handleFav }: DataGridProps) {
       <DataRow
         key={track.id}
         track={track}
+        isPlaying={playingTrackId === track.id}
         handlePlay={handlePlay}
         handleFav={handleFav}
       />
@@ -28,18 +35,18 @@ export function DataGrid({ tracks, handlePlay, handleFav }: DataGridProps) {
 
   return (
     <div className={styles['container']}>
-      <table className="table table-hover">
+      <table className="table table-hover align-middle">
         <thead>
           <tr>
-            <td scope="col"></td>
-            <td scope="col"></td>
-            <td scope="col">Title</td>
-            <td scope="col">Artiste</td>
-            <td scope="col">Album</td>
-            <td scope="col">Date</td>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Artiste</th>
+            <th scope="col">Album</th>
+            <th scope="col">Date</th>
           </tr>
         </thead>
-        <tbody>{tBody}</tbody>
+        <tbody className="table-group-divider">{tBody}</tbody>
       </table>
     </div>
   );

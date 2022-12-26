@@ -1,7 +1,19 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.container {
+  white-space: nowrap;
+
+  &.active {
+    color: white;
+
+    &:hover td {
+      color: white;
+    }
+
+    & td.title {
+      color: var(--bs-primary);
+    }
+  }
+
+  td {
+    max-width: 100px;
+  }
+}

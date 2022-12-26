@@ -3,11 +3,17 @@ import styles from './data-row.module.scss';
 
 export interface DataRowProps {
   track: Track & { isLiked: boolean };
+  isPlaying: boolean;
   handlePlay: (trackId: string) => void;
   handleFav: (trackId: string) => void;
 }
 
-export function DataRow({ track, handlePlay, handleFav }: DataRowProps) {
+export function DataRow({
+  track,
+  isPlaying,
+  handlePlay,
+  handleFav,
+}: DataRowProps) {
   const formatedDate = new Intl.DateTimeFormat('default', {
     day: 'numeric',
     month: 'long',
@@ -24,7 +30,7 @@ export function DataRow({ track, handlePlay, handleFav }: DataRowProps) {
       viewBox="0 0 16 16"
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
       />
     </svg>
@@ -41,8 +47,14 @@ export function DataRow({ track, handlePlay, handleFav }: DataRowProps) {
     </svg>
   );
 
+  let trClassName = styles['container'];
+
+  if (isPlaying) {
+    trClassName += ' ' + styles['active'];
+  }
+
   return (
-    <tr key={track.id} className={styles['container']}>
+    <tr key={track.id} className={trClassName}>
       <td onClick={() => handlePlay(track.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -56,10 +68,10 @@ export function DataRow({ track, handlePlay, handleFav }: DataRowProps) {
         </svg>
       </td>
       <td onClick={() => handleFav(track.id)}>{heart}</td>
-      <td>{track.name}</td>
-      <td>{track.artists.join(', ') ?? ''}</td>
-      <td>{track.album.name}</td>
-      <td>{formatedDate}</td>
+      <td className={styles['title'] + ' text-truncate'}>{track.name}</td>
+      <td className="text-truncate">{track.artists.join(', ') ?? ''}</td>
+      <td className="text-truncate">{track.album.name}</td>
+      <td className="text-truncate">{formatedDate}</td>
     </tr>
   );
 }

@@ -1,20 +1,21 @@
 import Hero from '../components/molecules/Hero/hero';
 import styles from './index.module.scss';
-import { useAppDispatch } from 'src/state/hooks';
+import { useAppDispatch, useAppSelector } from 'src/state/hooks';
 import {
   playTrack,
+  selectPlayingTrackId,
   selectPlaylistInfo,
   selectTracks,
   toggleFavoriteTrack,
 } from 'src/state/reducers';
-import { useSelector } from 'react-redux';
 import DataGrid from 'src/components/molecules/DataGrid/data-grid';
 
 export function Index() {
   const dispatch = useAppDispatch();
 
-  const playlist = useSelector(selectPlaylistInfo);
-  const tracks = useSelector(selectTracks);
+  const playlist = useAppSelector(selectPlaylistInfo);
+  const tracks = useAppSelector(selectTracks);
+  const playingTrackId = useAppSelector(selectPlayingTrackId);
 
   return (
     <div className={styles.page}>
@@ -26,6 +27,7 @@ export function Index() {
           <main>
             <DataGrid
               tracks={tracks}
+              playingTrackId={playingTrackId}
               handlePlay={(trackId: string) => {
                 dispatch(playTrack(trackId));
               }}

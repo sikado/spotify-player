@@ -110,7 +110,9 @@ export const selectTracks = createSelector([selectMainState], ({ playlist, favor
   return playlist?.tracks.map(track => ({ ...track, isLiked: favoritesTracksIds.includes(track.id) }))
 })
 
-export const selectPlayingTrack = createSelector([selectTracks, selectMainState], (tracks, { playingTrackId }) => {
+export const selectPlayingTrackId = createSelector([selectMainState], ({ playingTrackId }) => playingTrackId)
+
+export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTrackId], (tracks, playingTrackId) => {
 
   const playingTrack = tracks?.find(track => track.id === playingTrackId)
 
