@@ -8,6 +8,12 @@ export interface DataRowProps {
 }
 
 export function DataRow({ track, handlePlay, handleFav }: DataRowProps) {
+  const formatedDate = new Intl.DateTimeFormat('default', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(Date.parse(track.added_at));
+
   const heart = track.isLiked ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +59,7 @@ export function DataRow({ track, handlePlay, handleFav }: DataRowProps) {
       <td>{track.name}</td>
       <td>{track.artists.join(', ') ?? ''}</td>
       <td>{track.album.name}</td>
-      <td>{track.added_at}</td>
+      <td>{formatedDate}</td>
     </tr>
   );
 }
