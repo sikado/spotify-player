@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
 import styles from './nav-bar.module.scss';
 
 /* eslint-disable-next-line */
@@ -10,7 +12,11 @@ export function NavBar(props: NavBarProps) {
       <div className="container-fluid">
         <ul className="nav justify-content-center">
           <li className="nav-item">
-            <Link href="/" className="nav-link active">
+            <ActiveLink
+              href="/"
+              className="nav-link"
+              activeClassName={styles.activeLink}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -25,10 +31,14 @@ export function NavBar(props: NavBarProps) {
                 />
               </svg>
               Playlist
-            </Link>
+            </ActiveLink>
           </li>
           <li className="nav-item">
-            <Link href="/favorites" className="nav-link">
+            <ActiveLink
+              href="/favorites"
+              activeClassName={styles.activeLink}
+              className="nav-link"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -43,11 +53,34 @@ export function NavBar(props: NavBarProps) {
                 />
               </svg>
               Favorites
-            </Link>
+            </ActiveLink>
           </li>
         </ul>
       </div>
     </nav>
+  );
+}
+
+interface ActiveLinkProps {
+  children: ReactNode;
+  activeClassName: string;
+  href: string;
+  className: string;
+}
+
+/** Add the `activeClassName` if the link href === the current URL */
+function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
+  const { pathname } = useRouter();
+
+  const className =
+    pathname === props.href
+      ? `${props.className} ${activeClassName}`.trim()
+      : props.className;
+
+  return (
+    <Link {...props} className={className}>
+      {children}
+    </Link>
   );
 }
 
