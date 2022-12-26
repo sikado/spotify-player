@@ -3,6 +3,9 @@ import { useAppDispatch, useAppSelector } from 'src/state/hooks';
 import {
   fetchFavorites,
   fetchOncePlaylist,
+  playNextTrack,
+  playPrevTrack,
+  selectCanSkipNext,
   selectPlayingTrack,
 } from 'src/state/slices/playlist';
 import NavBar from '../molecules/NavBar/nav-bar';
@@ -17,11 +20,25 @@ export function Layout({ children }: { children: ReactNode }) {
   }, [dispatch]);
 
   const playingTrack = useAppSelector(selectPlayingTrack);
+
+  const canSkipNext = useAppSelector(selectCanSkipNext);
+
   let player: ReactNode | null = null;
   let marginBottom = 50;
 
   if (playingTrack != null) {
-    player = <Player track={playingTrack} />;
+    player = (
+      <Player
+        track={playingTrack}
+        canSkipNext={canSkipNext}
+        handleSkipNext={() => {
+          dispatch(playNextTrack());
+        }}
+        handleSkipPrev={() => {
+          dispatch(playPrevTrack());
+        }}
+      />
+    );
     marginBottom = 150;
   }
 

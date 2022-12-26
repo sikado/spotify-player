@@ -8,20 +8,27 @@ import styles from './player.module.scss';
 /* eslint-disable-next-line */
 export interface PlayerProps {
   track: Track;
+  canSkipNext: boolean;
+  handleSkipNext: () => void;
+  handleSkipPrev: () => void;
 }
 
-export function Player({ track }: PlayerProps) {
+export function Player({
+  track,
+  canSkipNext,
+  handleSkipNext,
+  handleSkipPrev,
+}: PlayerProps) {
   const [audio, state, controls] = useAudio({
     src: track.preview_url,
-    autoPlay: false,
+    autoPlay: true,
+    onEnded: () => {
+      handleSkipNext();
+    },
   });
 
   const handlePlayToggle = () => {
     state.playing ? controls.pause() : controls.play();
-  };
-
-  const handleSkip = () => {
-    return undefined;
   };
 
   return (
@@ -29,9 +36,21 @@ export function Player({ track }: PlayerProps) {
       <div>{audio}</div>
       <div className="col-auto">
         <div className="d-grid gap-2 d-md-block">
-          <SkipButton direction="prev" canSkip={false} onClick={handleSkip} />
+          <SkipButton
+            direction="prev"
+            canSkip={false}
+            onClick={() => {
+              handleSkipPrev();
+            }}
+          />
           <PlayButton isPlaying={state.playing} onClick={handlePlayToggle} />
-          <SkipButton direction="next" canSkip={false} onClick={handleSkip} />
+          <SkipButton
+            direction="next"
+            canSkip={canSkipNext}
+            onClick={() => {
+              handleSkipNext();
+            }}
+          />
         </div>
       </div>
       <div className="col-4">

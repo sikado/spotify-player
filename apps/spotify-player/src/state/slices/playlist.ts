@@ -9,14 +9,14 @@ export interface PlaylistState {
   playlist: Playlist | null,
   isLoading: boolean,
   favoritesTracksIds: string[],
-  playingTrackId: string | null,
+  playingTrackIds: string[],
 }
 
 const initialState: PlaylistState = {
   playlist: null,
   isLoading: false,
   favoritesTracksIds: [],
-  playingTrackId: null
+  playingTrackIds: []
 }
 
 export const fetchOncePlaylist = createAsyncThunk(
@@ -72,24 +72,31 @@ export const playlistSlice = createSlice({
   },
   reducers: {
     "playTrack": (state, action: PayloadAction<string>): PlaylistState => {
-      const playingTrack = state.playlist?.tracks.find(track => track.id === action.payload);
 
-      if (playingTrack) {
+      const trackIds = state.playlist?.tracks.map(track => track.id)
+
+      const nextTrackIndex = trackIds?.indexOf(action.payload);
+
+      if (trackIds && nextTrackIndex) {
         return {
           ...state,
-          playingTrackId: action.payload
+          playingTrackIds: trackIds.slice(nextTrackIndex)
         }
       } else {
         return {
           ...state,
-          playingTrackId: null
+          playingTrackIds: []
         }
       }
     },
     "playNextTrack": (state): PlaylistState => {
-      // @todo
-      throw new Error('🚧 Work in progress');
-      return state;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [_, ...playingTrackIds] = state.playingTrackIds;
+
+      return {
+        ...state,
+        playingTrackIds,
+      }
     },
     "playPrevTrack": (state): PlaylistState => {
       // @todo
@@ -107,6 +114,7 @@ const selectPlaylistSlice = (state: RootState) => {
   return state.plalistSlice
 }
 
+/** Select the playlist metadata */
 export const selectPlaylistInfo = createSelector([selectPlaylistSlice], ({ playlist }) => {
   if (playlist) {
     return { name: playlist.name, id: playlist.id, imageUrl: playlist.imageUrl }
@@ -115,12 +123,15 @@ export const selectPlaylistInfo = createSelector([selectPlaylistSlice], ({ playl
   }
 })
 
+/** Select the playlist tracks with their like status */
 export const selectTracks = createSelector([selectPlaylistSlice], ({ playlist, favoritesTracksIds }) => {
   return playlist?.tracks.map(track => ({ ...track, isLiked: favoritesTracksIds.includes(track.id) }))
 })
 
-export const selectPlayingTrackId = createSelector([selectPlaylistSlice], ({ playingTrackId }) => playingTrackId)
+/** Select the currently playing track id */
+export const selectPlayingTrackId = createSelector([selectPlaylistSlice], ({ playingTrackIds }) => playingTrackIds[0] ?? null)
 
+/** Select the currently playing track */
 export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTrackId], (tracks, playingTrackId) => {
 
   const playingTrack = tracks?.find(track => track.id === playingTrackId)
@@ -132,9 +143,13 @@ export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTra
   return playingTrack
 });
 
+/** Select the favorite tracks */
 export const selectFavoritesTracks = createSelector(selectTracks, (tracks) => {
   return tracks?.filter(track => track.isLiked)
 });
+
+/** Select the CanSkipNext flag */
+export const selectCanSkipNext = createSelector([selectPlaylistSlice], ({ playingTrackIds }) => playingTrackIds.length > 1)
 
 
 
