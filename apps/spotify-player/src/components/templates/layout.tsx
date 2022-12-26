@@ -25,13 +25,15 @@ export function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <main className="app container-xl">
-      {children}
-      <div className="fixed-bottom">
-        {player}
-        <NavBar />
+    <div className="app">
+      <div className="container-fluid">
+        {children}
+        <div className="fixed-bottom">
+          {player}
+          <NavBar />
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
 

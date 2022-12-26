@@ -19,19 +19,21 @@ export function Favorites(props: FavoritesProps) {
   return (
     <div className={styles['container']}>
       <Hero name="Favorites" />
-      {favoritesTracks == null || favoritesTracks.length === 0 ? (
-        <h3>No tracks to display</h3>
-      ) : (
-        <DataGrid
-          tracks={favoritesTracks}
-          handlePlay={(trackId) => {
-            dispatch(playTrack(trackId));
-          }}
-          handleFav={(trackId) => {
-            dispatch(toggleFavoriteTrack(trackId));
-          }}
-        />
-      )}
+      <main>
+        {favoritesTracks == null || favoritesTracks.length === 0 ? (
+          <h3>No tracks to display</h3>
+        ) : (
+          <DataGrid
+            tracks={favoritesTracks}
+            handlePlay={(trackId) => {
+              dispatch(playTrack(trackId));
+            }}
+            handleFav={(trackId) => {
+              dispatch(toggleFavoriteTrack(trackId));
+            }}
+          />
+        )}
+      </main>
     </div>
   );
 }

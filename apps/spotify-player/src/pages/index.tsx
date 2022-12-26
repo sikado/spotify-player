@@ -18,26 +18,24 @@ export function Index() {
 
   return (
     <div className={styles.page}>
-      <div className="wrapper">
-        <div className="container">
-          {playlist == null || tracks == null ? (
-            <h2>Loading...</h2>
-          ) : (
-            <>
-              <Hero name={playlist.name} imageUrl={playlist.imageUrl} />
-              <DataGrid
-                tracks={tracks}
-                handlePlay={(trackId: string) => {
-                  dispatch(playTrack(trackId));
-                }}
-                handleFav={(trackId: string) => {
-                  dispatch(toggleFavoriteTrack(trackId));
-                }}
-              />
-            </>
-          )}
-        </div>
-      </div>
+      {playlist == null || tracks == null ? (
+        <h2>Loading...</h2>
+      ) : (
+        <>
+          <Hero name={playlist.name} imageUrl={playlist.imageUrl} />
+          <main>
+            <DataGrid
+              tracks={tracks}
+              handlePlay={(trackId: string) => {
+                dispatch(playTrack(trackId));
+              }}
+              handleFav={(trackId: string) => {
+                dispatch(toggleFavoriteTrack(trackId));
+              }}
+            />
+          </main>
+        </>
+      )}
     </div>
   );
 }

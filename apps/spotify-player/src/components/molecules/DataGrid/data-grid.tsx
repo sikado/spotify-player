@@ -28,7 +28,7 @@ export function DataGrid({ tracks, handlePlay, handleFav }: DataGridProps) {
 
   return (
     <div className={styles['container']}>
-      <table className="table table-hover table-dark">
+      <table className="table table-hover">
         <thead>
           <tr>
             <td scope="col"></td>

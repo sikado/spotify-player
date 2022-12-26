@@ -8,7 +8,7 @@ export interface HeroProps {
 
 export function Hero({ name, imageUrl }: HeroProps) {
   return (
-    <div className={styles['container'] + ' row'}>
+    <header className={styles['container'] + ' row'}>
       <div className="col-auto">
         <div className="cover">
           {imageUrl ? (
@@ -26,7 +26,7 @@ export function Hero({ name, imageUrl }: HeroProps) {
         <h1>{name}</h1>
         <button className="btn btn-outline-primary btn-sm">Play</button>
       </div>
-    </div>
+    </header>
   );
 }
 
