@@ -1,8 +1,8 @@
 import { useAudio } from 'react-use';
-import { Track } from 'src/services/playlist';
-import PlayButton from '../../atoms/PlayButton/play-button';
-import SkipButton from '../../atoms/SkipButton/skip-button';
-import SmallTrackDisplay from '../../molecules/SmallTrackDisplay/small-track-display';
+import { Track } from '@spotify-player/api';
+import PlayButton from './PlayButton/play-button';
+import SkipButton from './SkipButton/skip-button';
+import SmallTrackDisplay from './SmallTrackDisplay/small-track-display';
 import styles from './player.module.scss';
 
 /* eslint-disable-next-line */

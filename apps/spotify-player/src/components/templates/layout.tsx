@@ -9,7 +9,7 @@ import {
   selectPlayingTrack,
 } from '../../state/slices/playlist';
 import NavBar from '../molecules/NavBar/nav-bar';
-import Player from '../organisms/Player/player';
+import Player from '@spotify-player/feat-player';
 
 export function Layout({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();
