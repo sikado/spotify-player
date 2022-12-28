@@ -4,6 +4,7 @@ import { concatPagination } from '@apollo/client/utilities'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import fetch from 'cross-fetch';
+import { PUBLIC_API_URI } from '@spotify-player/core'
 
 let apolloClient: ReturnType<typeof createApolloClient>
 
@@ -11,7 +12,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_API_URI, // Server URL (must be absolute)
+      uri: PUBLIC_API_URI,
       fetch, // cross-fetch for SSR
     }),
     cache: new InMemoryCache({
