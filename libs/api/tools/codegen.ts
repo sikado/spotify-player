@@ -1,8 +1,10 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PUBLIC_API_URI } from '../../core/src';
 
 const config: CodegenConfig = {
-  schema: process.env.NEXT_PUBLIC_API_URI,
-  documents: ['src/lib/*.graphql'],
+  schema: PUBLIC_API_URI,
+  documents: ['../src/lib/*.graphql'],
   generates: {
     './generated-types.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],

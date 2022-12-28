@@ -22,10 +22,8 @@
     "codegen": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "graphql-codegen --require dotenv/config --config tools/codegen.ts"
-        ],
-        "cwd": "apps/spotify-player",
+        "commands": ["graphql-codegen --config codegen.ts"],
+        "cwd": "libs/api/tools",
         "parallel": false
       }
     }
