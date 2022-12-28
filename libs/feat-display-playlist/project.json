@@ -1,15 +1,15 @@
 {
-  "name": "playlist",
+  "name": "feat-display-playlist",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/playlist/src",
+  "sourceRoot": "libs/feat-display-playlist/src",
   "projectType": "library",
-  "tags": ["feat"],
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/playlist/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/feat-display-playlist/**/*.{ts,tsx,js,jsx}"]
       }
     }
   }

@@ -16,8 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@spotify-player/api": ["libs/api/src/index.ts"],
-      "@spotify-player/feat-player": ["libs/feat-player/src/index.ts"],
-      "@spotify-player/playlist": ["libs/playlist/src/index.ts"]
+      "@spotify-player/feat-display-playlist": [
+        "libs/feat-display-playlist/src/index.ts"
+      ],
+      "@spotify-player/feat-player": ["libs/feat-player/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

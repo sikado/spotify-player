@@ -5,7 +5,7 @@ import {
   selectPlayingTrackId,
   toggleFavoriteTrack,
 } from '../state/slices/playlist';
-import { Playlist } from '@spotify-player/playlist';
+import DisplayPlaylist from '@spotify-player/feat-display-playlist';
 import styles from './favorites.module.scss';
 
 /* eslint-disable-next-line */
@@ -30,7 +30,7 @@ export function Favorites(_props: FavoritesProps) {
       ) : (
         <>
           <main>
-            <Playlist
+            <DisplayPlaylist
               tracks={tracks}
               playingTrackId={playingTrackId}
               playlist={playlist}

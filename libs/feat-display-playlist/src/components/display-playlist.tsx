@@ -1,8 +1,8 @@
-import { Playlist, Track } from '@spotify-player/api';
+import { Track } from '@spotify-player/api';
 import { useState } from 'react';
 import DataGrid from './DataGrid/data-grid';
 import Hero from './Hero/hero';
-import styles from './Playlist.module.scss';
+import styles from './display-playlist.module.scss';
 import SearchInput from './SearchInput/SearchInput';
 
 /* eslint-disable-next-line */
@@ -15,7 +15,7 @@ export interface PlaylistProps {
   handlePlayAll: () => void;
 }
 
-export function Playlist({
+export function DisplayPlaylist({
   tracks,
   playingTrackId,
   handlePlay,
@@ -72,4 +72,4 @@ function filterTrack(track: Track, term: string): boolean {
   );
 }
 
-export default Playlist;
+export default DisplayPlaylist;

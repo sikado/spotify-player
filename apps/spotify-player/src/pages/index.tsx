@@ -7,7 +7,7 @@ import {
   selectTracks,
   toggleFavoriteTrack,
 } from '../state/slices/playlist';
-import { Playlist } from '@spotify-player/playlist';
+import DisplayPlaylist from '@spotify-player/feat-display-playlist';
 
 export function Index() {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export function Index() {
         <h2>Loading...</h2>
       ) : (
         <main>
-          <Playlist
+          <DisplayPlaylist
             tracks={tracks}
             playingTrackId={playingTrackId}
             playlist={playlist}
