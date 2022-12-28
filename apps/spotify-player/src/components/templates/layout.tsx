@@ -6,6 +6,7 @@ import {
   playNextTrack,
   playPrevTrack,
   selectCanSkipNext,
+  selectCanSkipPrev,
   selectPlayingTrack,
 } from '../../state/slices/playlist';
 import NavBar from '../molecules/NavBar/nav-bar';
@@ -22,6 +23,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const playingTrack = useAppSelector(selectPlayingTrack);
 
   const canSkipNext = useAppSelector(selectCanSkipNext);
+  const canSkipPrev = useAppSelector(selectCanSkipPrev);
 
   let player: ReactNode | null = null;
   let marginBottom = 50;
@@ -34,6 +36,7 @@ export function Layout({ children }: { children: ReactNode }) {
         handleSkipNext={() => {
           dispatch(playNextTrack());
         }}
+        canSkipPrev={canSkipPrev}
         handleSkipPrev={() => {
           dispatch(playPrevTrack());
         }}

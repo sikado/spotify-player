@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
+  playAllTrack,
   playTrack,
   selectFavoritesTracks,
   selectPlayingTrackId,
@@ -16,7 +17,7 @@ export function Favorites(_props: FavoritesProps) {
   const playingTrackId = useAppSelector(selectPlayingTrackId);
 
   const playlist = {
-    name: 'Favorits',
+    name: 'Favorites',
   };
 
   const dispatch = useAppDispatch();
@@ -35,14 +36,14 @@ export function Favorites(_props: FavoritesProps) {
               playingTrackId={playingTrackId}
               playlist={playlist}
               handlePlay={(trackId: string) => {
-                dispatch(playTrack(trackId));
+                dispatch(playTrack({ tracks, trackId }));
               }}
               handleFav={(trackId: string) => {
                 dispatch(toggleFavoriteTrack(trackId));
               }}
               handlePlayAll={() => {
                 if (tracks.length > 0) {
-                  dispatch(playTrack(tracks[0].id));
+                  dispatch(playAllTrack(tracks));
                 }
               }}
             />

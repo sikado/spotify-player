@@ -9,6 +9,7 @@ import styles from './player.module.scss';
 export interface PlayerProps {
   track: Track;
   canSkipNext: boolean;
+  canSkipPrev: boolean;
   handleSkipNext: () => void;
   handleSkipPrev: () => void;
 }
@@ -16,6 +17,7 @@ export interface PlayerProps {
 export function Player({
   track,
   canSkipNext,
+  canSkipPrev,
   handleSkipNext,
   handleSkipPrev,
 }: PlayerProps) {
@@ -38,7 +40,7 @@ export function Player({
         <div className="d-grid gap-2 d-md-block">
           <SkipButton
             direction="prev"
-            canSkip={false}
+            canSkip={canSkipPrev}
             onClick={() => {
               handleSkipPrev();
             }}

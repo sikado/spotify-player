@@ -1,21 +1,23 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchFavoritesIds, saveFavoritesIds, fetchPlaylist, Playlist } from '@spotify-player/api';
+import { fetchFavoritesIds, saveFavoritesIds, fetchPlaylist, Playlist, Track } from '@spotify-player/api';
 import { RootState } from "../store";
 
 export const SLICE_NAME = "playlist"
 
 export interface PlaylistState {
-  playlist: Playlist | null,
-  isLoading: boolean,
-  favoritesTracksIds: string[],
-  playingTrackIds: string[],
+  playlist: Playlist | null;
+  favoritesTracksIds: string[];
+  currentTrackId: string | null;
+  currentPlaylistIds: string[];
+  // isLoading: boolean,
 }
 
 const initialState: PlaylistState = {
   playlist: null,
-  isLoading: false,
   favoritesTracksIds: [],
-  playingTrackIds: []
+  currentTrackId: null,
+  currentPlaylistIds: [],
+  // isLoading: false,
 }
 
 export const fetchOncePlaylist = createAsyncThunk(
@@ -53,11 +55,11 @@ export const playlistSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOncePlaylist.fulfilled, (state, action) =>
-        ({ ...state, isLoading: false, playlist: action.payload }))
-      .addCase(fetchOncePlaylist.pending, (state) => ({ ...state, isLoading: true }))
+        ({ ...state, /* isLoading: false, */ playlist: action.payload }))
+      .addCase(fetchOncePlaylist.pending, (state) => ({ ...state /*, isLoading: true */ }))
       .addCase(fetchOncePlaylist.rejected, (state, action) => {
         console.error(action.error)
-        return { ...state, isLoading: false, playlist: null }
+        return { ...state, /* isLoading: false, */ playlist: null }
       })
       .addCase(fetchFavorites.fulfilled, (state, { payload }) =>
         ({ ...state, favoritesTracksIds: payload }))
@@ -70,43 +72,61 @@ export const playlistSlice = createSlice({
       });
   },
   reducers: {
-    "playTrack": (state, action: PayloadAction<string>): PlaylistState => {
+    "playTrack": (state,
+      { payload }: PayloadAction<{ trackId: string, tracks: Track[] }>):
+      PlaylistState => {
 
-      const trackIds = state.playlist?.tracks.map(track => track.id)
-
-      const nextTrackIndex = trackIds?.indexOf(action.payload);
-
-      if (trackIds != null && nextTrackIndex != null) {
-        return {
-          ...state,
-          playingTrackIds: trackIds.slice(nextTrackIndex)
-        }
-      } else {
-        return {
-          ...state,
-          playingTrackIds: []
-        }
-      }
-    },
-    "playNextTrack": (state): PlaylistState => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [_, ...playingTrackIds] = state.playingTrackIds;
+      const currentPlaylistIds = payload.tracks.map(track => track.id)
 
       return {
         ...state,
-        playingTrackIds,
+        currentPlaylistIds,
+        currentTrackId: payload.trackId
+      }
+    },
+    "playNextTrack": (state): PlaylistState => {
+      if (state.currentTrackId == null || state.currentPlaylistIds.length === 0) {
+        return state;
+      }
+
+      const currentTrackIndex = state.currentPlaylistIds.indexOf(state.currentTrackId)
+      if (currentTrackIndex === -1 || currentTrackIndex === state.currentTrackId.length - 1) {
+        return {
+          ...state,
+        }
+      }
+
+      return {
+        ...state,
+        currentTrackId: state.currentPlaylistIds[currentTrackIndex + 1],
       }
     },
     "playPrevTrack": (state): PlaylistState => {
-      // @todo
-      throw new Error('🚧 Work in progress');
-      return state;
+      if (state.currentTrackId == null || state.currentPlaylistIds.length === 0) {
+        return state;
+      }
+
+      const currentTrackIndex = state.currentPlaylistIds.indexOf(state.currentTrackId)
+      if (currentTrackIndex < 1) {
+        return {
+          ...state,
+        }
+      }
+
+      return {
+        ...state,
+        currentTrackId: state.currentPlaylistIds[currentTrackIndex - 1],
+      }
     }
   }
 })
 
 // Actions
 export const { playNextTrack, playPrevTrack, playTrack } = playlistSlice.actions
+export const playAllTrack = (tracks: Track[]) => {
+  return playTrack({ tracks, trackId: tracks[0]?.id })
+}
+
 
 // Selector
 const selectPlaylistSlice = (state: RootState) => {
@@ -128,7 +148,7 @@ export const selectTracks = createSelector([selectPlaylistSlice], ({ playlist, f
 })
 
 /** Select the currently playing track id */
-export const selectPlayingTrackId = createSelector([selectPlaylistSlice], ({ playingTrackIds }) => playingTrackIds[0] ?? null)
+export const selectPlayingTrackId = createSelector([selectPlaylistSlice], ({ currentTrackId }) => currentTrackId)
 
 /** Select the currently playing track */
 export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTrackId], (tracks, playingTrackId) => {
@@ -148,8 +168,9 @@ export const selectFavoritesTracks = createSelector(selectTracks, (tracks) => {
 });
 
 /** Select the CanSkipNext flag */
-export const selectCanSkipNext = createSelector([selectPlaylistSlice], ({ playingTrackIds }) => playingTrackIds.length > 1)
+export const selectCanSkipNext = createSelector([selectPlaylistSlice], ({ currentTrackId, currentPlaylistIds }) => currentTrackId != null && currentPlaylistIds.length - 1 > currentPlaylistIds.indexOf(currentTrackId))
 
-
+/** Select the CanSkipPrev flag */
+export const selectCanSkipPrev = createSelector([selectPlaylistSlice], ({ currentPlaylistIds, currentTrackId }) => currentTrackId != null && currentPlaylistIds.indexOf(currentTrackId) > 0)
 
 export default playlistSlice.reducer

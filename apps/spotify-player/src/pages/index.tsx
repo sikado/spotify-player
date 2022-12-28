@@ -1,6 +1,7 @@
 import styles from './index.module.scss';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
+  playAllTrack,
   playTrack,
   selectPlayingTrackId,
   selectPlaylistInfo,
@@ -27,14 +28,14 @@ export function Index() {
             playingTrackId={playingTrackId}
             playlist={playlist}
             handlePlay={(trackId: string) => {
-              dispatch(playTrack(trackId));
+              dispatch(playTrack({ tracks, trackId }));
             }}
             handleFav={(trackId: string) => {
               dispatch(toggleFavoriteTrack(trackId));
             }}
             handlePlayAll={() => {
               if (tracks.length > 0) {
-                dispatch(playTrack(tracks[0].id));
+                dispatch(playAllTrack(tracks));
               }
             }}
           />
