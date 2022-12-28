@@ -1,5 +1,5 @@
 import { Track } from '@spotify-player/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataGrid from './DataGrid/data-grid';
 import Hero from './Hero/hero';
 import styles from './display-playlist.module.scss';
@@ -24,16 +24,24 @@ export function DisplayPlaylist({
   playlist,
 }: PlaylistProps) {
   const [serchedTerm, setSerchedTerm] = useState('');
-
+  const [totalDuration_ms, setTotalDuration_ms] = useState(0);
   const filteredTracks = tracks.filter((track) =>
     filterTrack(track, serchedTerm)
   );
+
+  useEffect(() => {
+    setTotalDuration_ms(() =>
+      tracks.reduce((acc, val) => acc + val.duration_ms, 0)
+    );
+  }, [tracks]);
 
   return (
     <div className={styles['container']}>
       <Hero
         name={playlist.name}
         imageUrl={playlist.imageUrl}
+        trackCount={tracks.length}
+        totalDuration_ms={totalDuration_ms}
         handlePlayAll={handlePlayAll}
       />
       <div className="row">

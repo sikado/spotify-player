@@ -14,5 +14,6 @@ export interface Track {
   preview_url: string;
   artists: string[];
   album: Album;
+  duration_ms: number;
 }
 

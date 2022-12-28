@@ -4,10 +4,23 @@ import styles from './hero.module.scss';
 export interface HeroProps {
   name: string;
   imageUrl?: string;
+  trackCount: number;
+  totalDuration_ms: number;
   handlePlayAll: () => void;
 }
 
-export function Hero({ name, imageUrl, handlePlayAll }: HeroProps) {
+export function Hero({
+  name,
+  imageUrl,
+  trackCount,
+  totalDuration_ms,
+  handlePlayAll,
+}: HeroProps) {
+  const totalDuration = {
+    hours: Math.floor(totalDuration_ms / 1000 / 60 / 60),
+    min: Math.floor(totalDuration_ms / 1000 / 60) % 60,
+  };
+
   return (
     <header className={styles['container'] + ' row'}>
       <div className="col-auto">
@@ -22,9 +35,16 @@ export function Hero({ name, imageUrl, handlePlayAll }: HeroProps) {
           ) : null}
         </div>
       </div>
-      <div className="col">
+      <div className="col-auto">
         <small className="text-muted">Playlist</small>
         <h1>{name}</h1>
+        <p>
+          <small className="text-muted">
+            {trackCount} songs - {totalDuration.hours} h {totalDuration.min} min
+          </small>
+        </p>
+      </div>
+      <div className="col align-self-end">
         <button
           className="btn btn-outline-primary btn-sm"
           onClick={handlePlayAll}

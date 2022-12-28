@@ -6,7 +6,7 @@ const config: CodegenConfig = {
   schema: PUBLIC_API_URI,
   documents: ['../src/lib/*.graphql'],
   generates: {
-    './generated-types.ts': {
+    '../src/lib/generated-types.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
       config: {
         typesPrefix: 'gql_'

@@ -72,7 +72,7 @@ export type gql_Track = {
 export type gql_GetPlaylistQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type gql_GetPlaylistQuery = { __typename?: 'Query', playlist: { __typename?: 'Playlist', id: string, name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null, tracks?: Array<{ __typename?: 'PlaylistTrack', added_at: string, track: { __typename?: 'Track', preview_url?: string | null, id: string, name: string, artists?: Array<{ __typename?: 'Artist', name: string } | null> | null, album?: { __typename?: 'Album', name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null } | null } } | null> | null } };
+export type gql_GetPlaylistQuery = { __typename?: 'Query', playlist: { __typename?: 'Playlist', id: string, name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null, tracks?: Array<{ __typename?: 'PlaylistTrack', added_at: string, track: { __typename?: 'Track', preview_url?: string | null, id: string, name: string, duration_ms: number, artists?: Array<{ __typename?: 'Artist', name: string } | null> | null, album?: { __typename?: 'Album', name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null } | null } } | null> | null } };
 
 
 export const GetPlaylistDocument = gql`
@@ -89,6 +89,7 @@ export const GetPlaylistDocument = gql`
         preview_url
         id
         name
+        duration_ms
         artists {
           name
         }

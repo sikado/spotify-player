@@ -1,4 +1,4 @@
-import { GetPlaylistDocument, gql_GetPlaylistQuery } from "../../../tools/generated-types";
+import { GetPlaylistDocument, gql_GetPlaylistQuery } from "../generated-types";
 import { initializeApollo } from "../apollo-client";
 import { Playlist, Track } from "./models";
 
@@ -22,7 +22,8 @@ export async function fetchPlaylist(): Promise<Playlist> {
           album: { name: playlistTrack.track.album?.name ?? '', imageUrl: playlistTrack.track.album?.images?.[0]?.url },
           artists: playlistTrack.track.artists?.reduce<string[]>((acc, artist) => { if (artist != null) { acc.push(artist.name); } return acc }, []) ?? [],
           id: playlistTrack.track.id,
-          preview_url: playlistTrack.track.preview_url
+          preview_url: playlistTrack.track.preview_url,
+          duration_ms: playlistTrack.track.duration_ms
         });
       }
       return acc;

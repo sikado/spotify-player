@@ -6,16 +6,22 @@ Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:420
 
 ## Tech Stack
 
-- React/Nextjs with Apollo-Client
-- Jest for unit tests
+- React/Nextjs with Apollo-Client & Redux toolkit
+- Jest for unit tests without DOM
 - Cypress for DOM testing
 - Nx to manage the repo
 - Hosting on Vercel
 
 ## ToDo
 
-- Cleanup structure
+- Review structure
+- Tests Cypress cpn
+- Test state
 - import cypress-axe for A11y testing
+
+## Notes
+
+- Utilisation de bootstrap 5.3 en alpha pour utiliser le dark mode (attendre la version stable pour passer en prod!)
 
 ## Limitation & Pref optimisation
 
