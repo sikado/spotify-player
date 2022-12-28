@@ -41,6 +41,7 @@ export function SmallTrackDisplay({ track, size }: SmallTrackDisplayProps) {
                 data-cy="cover"
                 src={albumCoverSrc}
                 fill
+                sizes={`(max-width: ${picSize}) 100vw`}
                 alt="Album cover"
               />
             ) : (
