@@ -1,4 +1,4 @@
-import { Track } from 'src/services/playlist';
+import { Track } from '@spotify-player/api';
 import styles from './data-row.module.scss';
 
 export interface DataRowProps {

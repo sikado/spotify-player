@@ -58,16 +58,6 @@
         "lintFilePatterns": ["apps/spotify-player/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "codegen": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "graphql-codegen --require dotenv/config --config codegen.ts"
-        ],
-        "cwd": "apps/spotify-player",
-        "parallel": false
-      }
-    },
     "component-test": {
       "command": "cypress open --project apps/spotify-player --component --browser chrome"
     },

@@ -1,4 +1,4 @@
-import { GetPlaylistDocument, gql_GetPlaylistQuery } from "@/generated-types";
+import { GetPlaylistDocument, gql_GetPlaylistQuery } from "../../../tools/generated-types";
 import { initializeApollo } from "../apollo-client";
 import { Playlist, Track } from "./models";
 

@@ -1,20 +1,23 @@
-import DataGrid from 'src/components/molecules/DataGrid/data-grid';
-import { useAppDispatch, useAppSelector } from 'src/state/hooks';
+import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
   playTrack,
   selectFavoritesTracks,
   selectPlayingTrackId,
   toggleFavoriteTrack,
-} from 'src/state/slices/playlist';
-import Hero from '../components/molecules/Hero/hero';
+} from '../state/slices/playlist';
+import { Playlist } from '@spotify-player/playlist';
 import styles from './favorites.module.scss';
 
 /* eslint-disable-next-line */
 export interface FavoritesProps {}
 
-export function Favorites(props: FavoritesProps) {
-  const favoritesTracks = useAppSelector(selectFavoritesTracks);
+export function Favorites(_props: FavoritesProps) {
+  const tracks = useAppSelector(selectFavoritesTracks);
   const playingTrackId = useAppSelector(selectPlayingTrackId);
+
+  const playlist = {
+    name: 'Favorits',
+  };
 
   const dispatch = useAppDispatch();
 
@@ -22,33 +25,27 @@ export function Favorites(props: FavoritesProps) {
 
   return (
     <div className={styles['container']}>
-      {favoritesTracks == null ? (
+      {tracks == null ? (
         <h2>Loading...</h2>
       ) : (
         <>
-          <Hero
-            name="Favorites"
-            handlePlayAll={() => {
-              if (favoritesTracks.length > 0) {
-                dispatch(playTrack(favoritesTracks[0].id));
-              }
-            }}
-          />
           <main>
-            {favoritesTracks.length === 0 ? (
-              <h3>No tracks to display</h3>
-            ) : (
-              <DataGrid
-                tracks={favoritesTracks}
-                playingTrackId={playingTrackId}
-                handlePlay={(trackId) => {
-                  dispatch(playTrack(trackId));
-                }}
-                handleFav={(trackId) => {
-                  dispatch(toggleFavoriteTrack(trackId));
-                }}
-              />
-            )}
+            <Playlist
+              tracks={tracks}
+              playingTrackId={playingTrackId}
+              playlist={playlist}
+              handlePlay={(trackId: string) => {
+                dispatch(playTrack(trackId));
+              }}
+              handleFav={(trackId: string) => {
+                dispatch(toggleFavoriteTrack(trackId));
+              }}
+              handlePlayAll={() => {
+                if (tracks.length > 0) {
+                  dispatch(playTrack(tracks[0].id));
+                }
+              }}
+            />
           </main>
         </>
       )}

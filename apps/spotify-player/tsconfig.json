@@ -11,11 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "types": ["jest", "node", "cypress"],
-    "baseUrl": ".",
-    "paths": {
-      "@/generated-types": ["generated-types.ts"]
-    }
+    "types": ["jest", "node", "cypress"]
   },
   "include": ["next-env.d.ts", "./cypress.d.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "jest.config.ts", "cypress.config.ts"]

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'src/state/hooks';
+import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import {
   fetchFavorites,
   fetchOncePlaylist,
@@ -7,7 +7,7 @@ import {
   playPrevTrack,
   selectCanSkipNext,
   selectPlayingTrack,
-} from 'src/state/slices/playlist';
+} from '../../state/slices/playlist';
 import NavBar from '../molecules/NavBar/nav-bar';
 import Player from '../organisms/Player/player';
 

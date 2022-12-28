@@ -8,14 +8,14 @@ Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:420
 
 - React/Nextjs with Apollo-Client
 - Jest for unit tests
-- Cypress for DOM testing & E2E
+- Cypress for DOM testing
 - Nx to manage the repo
 - Hosting on Vercel
 
 ## ToDo
 
 - Cleanup structure
-- E2E, import cypress-axe for A11y testing
+- import cypress-axe for A11y testing
 
 ## Limitation & Pref optimisation
 

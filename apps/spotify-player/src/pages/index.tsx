@@ -1,14 +1,13 @@
-import Hero from '../components/molecules/Hero/hero';
 import styles from './index.module.scss';
-import { useAppDispatch, useAppSelector } from 'src/state/hooks';
+import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
   playTrack,
   selectPlayingTrackId,
   selectPlaylistInfo,
   selectTracks,
   toggleFavoriteTrack,
-} from 'src/state/slices/playlist';
-import DataGrid from 'src/components/molecules/DataGrid/data-grid';
+} from '../state/slices/playlist';
+import { Playlist } from '@spotify-player/playlist';
 
 export function Index() {
   const dispatch = useAppDispatch();
@@ -22,29 +21,24 @@ export function Index() {
       {playlist == null || tracks == null ? (
         <h2>Loading...</h2>
       ) : (
-        <>
-          <Hero
-            name={playlist.name}
-            imageUrl={playlist.imageUrl}
+        <main>
+          <Playlist
+            tracks={tracks}
+            playingTrackId={playingTrackId}
+            playlist={playlist}
+            handlePlay={(trackId: string) => {
+              dispatch(playTrack(trackId));
+            }}
+            handleFav={(trackId: string) => {
+              dispatch(toggleFavoriteTrack(trackId));
+            }}
             handlePlayAll={() => {
               if (tracks.length > 0) {
                 dispatch(playTrack(tracks[0].id));
               }
             }}
           />
-          <main>
-            <DataGrid
-              tracks={tracks}
-              playingTrackId={playingTrackId}
-              handlePlay={(trackId: string) => {
-                dispatch(playTrack(trackId));
-              }}
-              handleFav={(trackId: string) => {
-                dispatch(toggleFavoriteTrack(trackId));
-              }}
-            />
-          </main>
-        </>
+        </main>
       )}
     </div>
   );
