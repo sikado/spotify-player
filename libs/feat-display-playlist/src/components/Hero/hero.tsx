@@ -1,17 +1,16 @@
+import { Playlist } from '@spotify-player/api';
 import Image from 'next/image';
 import styles from './hero.module.scss';
 
 export interface HeroProps {
-  name: string;
-  imageUrl?: string;
+  playlist: Playlist;
   trackCount: number;
   totalDuration_ms: number;
   handlePlayAll: () => void;
 }
 
 export function Hero({
-  name,
-  imageUrl,
+  playlist,
   trackCount,
   totalDuration_ms,
   handlePlayAll,
@@ -25,9 +24,9 @@ export function Hero({
     <header className={styles['container'] + ' row'}>
       <div className="col-auto">
         <div className="cover">
-          {imageUrl ? (
+          {playlist.imageUrl ? (
             <Image
-              src={imageUrl}
+              src={playlist.imageUrl}
               width={120}
               height={120}
               alt="Playlist cover"
@@ -37,7 +36,7 @@ export function Hero({
       </div>
       <div className="col-auto">
         <small className="text-muted">Playlist</small>
-        <h1>{name}</h1>
+        <h1>{playlist.name}</h1>
         <p>
           <small className="text-muted">
             {trackCount} songs - {totalDuration.hours} h {totalDuration.min} min

@@ -4,7 +4,7 @@ import DisplayPlaylist from './display-playlist';
 describe('<DisplayPlaylist />', () => {
   it('should render successfully', () => {
     const playlist = { name: 'playlist' };
-    const tracks: (Track & { isLiked: boolean })[] = [];
+    const tracks: Track[] = [];
     cy.mount(
       <DisplayPlaylist
         tracks={tracks}

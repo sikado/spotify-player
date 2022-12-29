@@ -2,7 +2,7 @@ import { Track } from '@spotify-player/api';
 import styles from './data-row.module.scss';
 
 export interface DataRowProps {
-  track: Track & { isLiked: boolean };
+  track: Track;
   isPlaying: boolean;
   handlePlay: (trackId: string) => void;
   handleFav: (trackId: string) => void;

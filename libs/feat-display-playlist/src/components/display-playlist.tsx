@@ -1,4 +1,4 @@
-import { Track } from '@spotify-player/api';
+import { Playlist, Track } from '@spotify-player/api';
 import { useEffect, useState } from 'react';
 import DataGrid from './DataGrid/data-grid';
 import Hero from './Hero/hero';
@@ -7,9 +7,9 @@ import SearchInput from './SearchInput/SearchInput';
 
 /* eslint-disable-next-line */
 export interface PlaylistProps {
-  tracks: (Track & { isLiked: boolean })[];
+  tracks: Track[];
   playingTrackId: string | null;
-  playlist: { name: string; imageUrl?: string };
+  playlist: Playlist;
   handlePlay: (trackId: string) => void;
   handleFav: (trackId: string) => void;
   handlePlayAll: () => void;
@@ -38,8 +38,7 @@ export function DisplayPlaylist({
   return (
     <div className={styles['container']}>
       <Hero
-        name={playlist.name}
-        imageUrl={playlist.imageUrl}
+        playlist={playlist}
         trackCount={tracks.length}
         totalDuration_ms={totalDuration_ms}
         handlePlayAll={handlePlayAll}

@@ -1,10 +1,9 @@
 export interface Album { name: string, imageUrl?: string }
 
 export interface Playlist {
-  id: string;
+  id?: string;
   name: string;
   imageUrl?: string;
-  tracks: Track[]
 }
 
 export interface Track {
@@ -15,5 +14,6 @@ export interface Track {
   artists: string[];
   album: Album;
   duration_ms: number;
+  isLiked: boolean
 }
 

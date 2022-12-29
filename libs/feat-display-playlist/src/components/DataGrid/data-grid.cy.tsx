@@ -3,7 +3,7 @@ import DataGrid from './data-grid';
 
 describe('<DataGrid />', () => {
   it('should render successfully', () => {
-    const tracks: (Track & { isLiked: boolean })[] = [];
+    const tracks: Track[] = [];
     cy.mount(
       <DataGrid
         tracks={tracks}

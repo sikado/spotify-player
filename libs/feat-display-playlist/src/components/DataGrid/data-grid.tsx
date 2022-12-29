@@ -3,7 +3,7 @@ import DataRow from '../DataRow/data-row';
 import styles from './data-grid.module.scss';
 
 export interface DataGridProps {
-  tracks: (Track & { isLiked: boolean })[];
+  tracks: Track[];
   playingTrackId: string | null;
   handlePlay: (trackId: string) => void;
   handleFav: (trackId: string) => void;

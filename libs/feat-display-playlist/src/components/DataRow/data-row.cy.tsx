@@ -3,7 +3,7 @@ import DataRow from './data-row';
 
 describe('<DataRow />', () => {
   it('should render successfully', () => {
-    const track: Track & { isLiked: boolean } = {
+    const track: Track = {
       added_at: '2013-03-10T02:00:00Z',
       album: { name: '' },
       artists: [''],

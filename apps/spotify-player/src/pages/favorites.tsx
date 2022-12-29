@@ -8,6 +8,7 @@ import {
 } from '../state/slices/playlist';
 import DisplayPlaylist from '@spotify-player/feat-display-playlist';
 import styles from './favorites.module.scss';
+import { Playlist } from '@spotify-player/api';
 
 /* eslint-disable-next-line */
 export interface FavoritesProps {}
@@ -16,7 +17,7 @@ export function Favorites(_props: FavoritesProps) {
   const tracks = useAppSelector(selectFavoritesTracks);
   const playingTrackId = useAppSelector(selectPlayingTrackId);
 
-  const playlist = {
+  const playlist: Playlist = {
     name: 'Favorites',
   };
 
