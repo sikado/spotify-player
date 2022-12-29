@@ -1,5 +1,5 @@
 import { Playlist } from '@spotify-player/api';
-import Hero from './hero';
+import Hero from './Hero';
 
 describe('<Hero />', () => {
   it('should render successfully', () => {
@@ -11,7 +11,7 @@ describe('<Hero />', () => {
         playlist={playlist}
         trackCount={0}
         totalDuration_ms={0}
-        handlePlayAll={() => {}}
+        onPlayAll={() => {}}
       />
     );
   });

@@ -27,13 +27,13 @@ export function Index() {
             tracks={tracks}
             playingTrackId={playingTrackId}
             playlist={playlist}
-            handlePlay={(trackId: string) => {
+            onPlay={(trackId: string) => {
               dispatch(playTrack({ tracks, trackId }));
             }}
-            handleFav={(trackId: string) => {
+            onFav={(trackId: string) => {
               dispatch(toggleFavoriteTrack(trackId));
             }}
-            handlePlayAll={() => {
+            onPlayAll={() => {
               if (tracks.length > 0) {
                 dispatch(playAllTrack(tracks));
               }

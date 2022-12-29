@@ -1,5 +1,5 @@
 import { Track } from '@spotify-player/api';
-import DisplayPlaylist from './display-playlist';
+import DisplayPlaylist from './DisplayPlaylist';
 
 describe('<DisplayPlaylist />', () => {
   it('should render successfully', () => {
@@ -10,9 +10,9 @@ describe('<DisplayPlaylist />', () => {
         tracks={tracks}
         playlist={playlist}
         playingTrackId={null}
-        handleFav={() => {}}
-        handlePlay={() => {}}
-        handlePlayAll={() => {}}
+        onFav={() => {}}
+        onPlay={() => {}}
+        onPlayAll={() => {}}
       />
     );
   });

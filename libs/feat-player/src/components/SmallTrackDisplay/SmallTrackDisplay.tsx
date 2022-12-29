@@ -1,4 +1,4 @@
-import styles from './small-track-display.module.scss';
+import styles from './SmallTrackDisplay.module.scss';
 import Image from 'next/image';
 import { Track } from '@spotify-player/api';
 

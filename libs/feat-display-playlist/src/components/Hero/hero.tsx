@@ -1,19 +1,19 @@
 import { Playlist } from '@spotify-player/api';
 import Image from 'next/image';
-import styles from './hero.module.scss';
+import styles from './Hero.module.scss';
 
 export interface HeroProps {
   playlist: Playlist;
   trackCount: number;
   totalDuration_ms: number;
-  handlePlayAll: () => void;
+  onPlayAll: () => void;
 }
 
 export function Hero({
   playlist,
   trackCount,
   totalDuration_ms,
-  handlePlayAll,
+  onPlayAll,
 }: HeroProps) {
   const totalDuration = {
     hours: Math.floor(totalDuration_ms / 1000 / 60 / 60),
@@ -44,10 +44,7 @@ export function Hero({
         </p>
       </div>
       <div className="col align-self-end">
-        <button
-          className="btn btn-outline-primary btn-sm"
-          onClick={handlePlayAll}
-        >
+        <button className="btn btn-outline-primary btn-sm" onClick={onPlayAll}>
           Play
         </button>
       </div>

@@ -10,10 +10,7 @@ import DisplayPlaylist from '@spotify-player/feat-display-playlist';
 import styles from './favorites.module.scss';
 import { Playlist } from '@spotify-player/api';
 
-/* eslint-disable-next-line */
-export interface FavoritesProps {}
-
-export function Favorites(_props: FavoritesProps) {
+export function Favorites() {
   const tracks = useAppSelector(selectFavoritesTracks);
   const playingTrackId = useAppSelector(selectPlayingTrackId);
 
@@ -22,8 +19,6 @@ export function Favorites(_props: FavoritesProps) {
   };
 
   const dispatch = useAppDispatch();
-
-  //@todo handle properly play from the liked playlist
 
   return (
     <div className={styles['container']}>
@@ -36,13 +31,13 @@ export function Favorites(_props: FavoritesProps) {
               tracks={tracks}
               playingTrackId={playingTrackId}
               playlist={playlist}
-              handlePlay={(trackId: string) => {
+              onPlay={(trackId: string) => {
                 dispatch(playTrack({ tracks, trackId }));
               }}
-              handleFav={(trackId: string) => {
+              onFav={(trackId: string) => {
                 dispatch(toggleFavoriteTrack(trackId));
               }}
-              handlePlayAll={() => {
+              onPlayAll={() => {
                 if (tracks.length > 0) {
                   dispatch(playAllTrack(tracks));
                 }

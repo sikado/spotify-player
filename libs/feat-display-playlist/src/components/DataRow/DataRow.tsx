@@ -1,19 +1,14 @@
 import { Track } from '@spotify-player/api';
-import styles from './data-row.module.scss';
+import styles from './DataRow.module.scss';
 
 export interface DataRowProps {
   track: Track;
   isPlaying: boolean;
-  handlePlay: (trackId: string) => void;
-  handleFav: (trackId: string) => void;
+  onPlay: (trackId: string) => void;
+  onFav: (trackId: string) => void;
 }
 
-export function DataRow({
-  track,
-  isPlaying,
-  handlePlay,
-  handleFav,
-}: DataRowProps) {
+export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
   const formatedDate = new Intl.DateTimeFormat('default', {
     day: 'numeric',
     month: 'long',
@@ -55,7 +50,7 @@ export function DataRow({
 
   return (
     <tr key={track.id} className={trClassName}>
-      <td onClick={() => handlePlay(track.id)}>
+      <td onClick={() => onPlay(track.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -67,7 +62,7 @@ export function DataRow({
           <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
         </svg>
       </td>
-      <td onClick={() => handleFav(track.id)}>{heart}</td>
+      <td onClick={() => onFav(track.id)}>{heart}</td>
       <td className={styles['title'] + ' text-truncate'}>{track.name}</td>
       <td className="text-truncate">{track.artists.join(', ') ?? ''}</td>
       <td className="text-truncate">{track.album.name}</td>

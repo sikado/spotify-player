@@ -1,5 +1,5 @@
 import { Track } from '@spotify-player/api';
-import SmallTrackDisplay from './small-track-display';
+import SmallTrackDisplay from './SmallTrackDisplay';
 
 describe('<SmallTrackDisplay />', () => {
   const track: Track = {
@@ -10,6 +10,7 @@ describe('<SmallTrackDisplay />', () => {
     id: '',
     added_at: '',
     duration_ms: 0,
+    isLiked: false,
   };
 
   it('should render successfully', () => {

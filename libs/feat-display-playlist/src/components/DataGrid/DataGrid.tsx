@@ -1,19 +1,19 @@
 import { Track } from '@spotify-player/api';
-import DataRow from '../DataRow/data-row';
-import styles from './data-grid.module.scss';
+import DataRow from '../DataRow/DataRow';
+import styles from './DataGrid.module.scss';
 
 export interface DataGridProps {
   tracks: Track[];
   playingTrackId: string | null;
-  handlePlay: (trackId: string) => void;
-  handleFav: (trackId: string) => void;
+  onPlay: (trackId: string) => void;
+  onFav: (trackId: string) => void;
 }
 
 export function DataGrid({
   tracks,
   playingTrackId,
-  handlePlay,
-  handleFav,
+  onPlay,
+  onFav,
 }: DataGridProps) {
   let tBody: JSX.Element | JSX.Element[] = (
     <tr>
@@ -27,8 +27,8 @@ export function DataGrid({
         key={track.id}
         track={track}
         isPlaying={playingTrackId === track.id}
-        handlePlay={handlePlay}
-        handleFav={handleFav}
+        onPlay={onPlay}
+        onFav={onFav}
       />
     ));
   }

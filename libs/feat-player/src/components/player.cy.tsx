@@ -1,5 +1,5 @@
 import { Track } from '@spotify-player/api';
-import Player from './player';
+import Player from './Player';
 
 describe('<Player />', () => {
   it('should render successfully', () => {
@@ -11,14 +11,15 @@ describe('<Player />', () => {
       id: '',
       name: '',
       preview_url: '',
+      isLiked: false,
     };
     cy.mount(
       <Player
         track={track}
         canSkipNext={false}
         canSkipPrev={false}
-        handleSkipNext={() => {}}
-        handleSkipPrev={() => {}}
+        onSkipNext={() => {}}
+        onSkipPrev={() => {}}
       />
     );
   });

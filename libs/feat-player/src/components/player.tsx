@@ -1,31 +1,31 @@
 import { useAudio } from 'react-use';
 import { Track } from '@spotify-player/api';
-import PlayButton from './PlayButton/play-button';
-import SkipButton from './SkipButton/skip-button';
-import SmallTrackDisplay from './SmallTrackDisplay/small-track-display';
-import styles from './player.module.scss';
+import PlayButton from './PlayButton/PlayButton';
+import SkipButton from './SkipButton/SkipButton';
+import SmallTrackDisplay from './SmallTrackDisplay/SmallTrackDisplay';
+import styles from './Player.module.scss';
 
 /* eslint-disable-next-line */
 export interface PlayerProps {
   track: Track;
   canSkipNext: boolean;
   canSkipPrev: boolean;
-  handleSkipNext: () => void;
-  handleSkipPrev: () => void;
+  onSkipNext: () => void;
+  onSkipPrev: () => void;
 }
 
 export function Player({
   track,
   canSkipNext,
   canSkipPrev,
-  handleSkipNext,
-  handleSkipPrev,
+  onSkipNext,
+  onSkipPrev,
 }: PlayerProps) {
   const [audio, state, controls] = useAudio({
     src: track.preview_url,
     autoPlay: true,
     onEnded: () => {
-      handleSkipNext();
+      onSkipNext();
     },
   });
 
@@ -42,7 +42,7 @@ export function Player({
             direction="prev"
             canSkip={canSkipPrev}
             onClick={() => {
-              handleSkipPrev();
+              onSkipPrev();
             }}
           />
           <PlayButton isPlaying={state.playing} onClick={handlePlayToggle} />
@@ -50,7 +50,7 @@ export function Player({
             direction="next"
             canSkip={canSkipNext}
             onClick={() => {
-              handleSkipNext();
+              onSkipNext();
             }}
           />
         </div>

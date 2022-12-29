@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-import styles from './nav-bar.module.scss';
+import styles from './NavBar.module.scss';
 
 /* eslint-disable-next-line */
 export interface NavBarProps {}
 
-export function NavBar(props: NavBarProps) {
+export function NavBar(_props: NavBarProps) {
   return (
     <nav className={styles['container'] + ' bg-dark'}>
       <div className="container-fluid">

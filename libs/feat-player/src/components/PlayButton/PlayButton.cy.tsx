@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayButton from './play-button';
+import PlayButton from './PlayButton';
 
 describe('<PlayButton />', () => {
   const buttonSelector = '[data-cy="play"]';

@@ -1,4 +1,4 @@
-import SkipButton from './skip-button';
+import SkipButton from './SkipButton';
 
 describe('<SkipButton />', () => {
   const buttonSelector = '[data-cy="button"]';

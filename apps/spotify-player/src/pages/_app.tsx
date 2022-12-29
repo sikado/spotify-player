@@ -3,7 +3,7 @@ import Head from 'next/head';
 import './styles.scss';
 import { Provider } from 'react-redux';
 import { store } from '../state/store';
-import Layout from '../components/templates/layout';
+import Layout from '../components/Layout/Layout';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (

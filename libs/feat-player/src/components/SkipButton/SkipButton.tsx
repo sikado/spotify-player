@@ -1,4 +1,4 @@
-import styles from './skip-button.module.scss';
+import styles from './SkipButton.module.scss';
 
 export interface SkipButtonProps {
   direction: 'next' | 'prev';

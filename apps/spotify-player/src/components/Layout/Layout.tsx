@@ -9,7 +9,7 @@ import {
   selectCanSkipPrev,
   selectPlayingTrack,
 } from '../../state/slices/playlist';
-import NavBar from '../molecules/NavBar/nav-bar';
+import NavBar from '../NavBar/NavBar';
 import Player from '@spotify-player/feat-player';
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -33,11 +33,11 @@ export function Layout({ children }: { children: ReactNode }) {
       <Player
         track={playingTrack}
         canSkipNext={canSkipNext}
-        handleSkipNext={() => {
+        onSkipNext={() => {
           dispatch(playNextTrack());
         }}
         canSkipPrev={canSkipPrev}
-        handleSkipPrev={() => {
+        onSkipPrev={() => {
           dispatch(playPrevTrack());
         }}
       />

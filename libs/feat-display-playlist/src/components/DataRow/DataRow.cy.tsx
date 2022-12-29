@@ -1,5 +1,5 @@
 import { Track } from '@spotify-player/api';
-import DataRow from './data-row';
+import DataRow from './DataRow';
 
 describe('<DataRow />', () => {
   it('should render successfully', () => {
@@ -17,8 +17,8 @@ describe('<DataRow />', () => {
       <DataRow
         track={track}
         isPlaying={false}
-        handleFav={() => {}}
-        handlePlay={() => {}}
+        onFav={() => {}}
+        onPlay={() => {}}
       />
     );
   });

@@ -17,6 +17,8 @@ Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:420
 - Tests Cypress cpn
 - Test state
 - Review structure
+- Handle loading states
+- Fix responsivness
 
 ## Notes
 

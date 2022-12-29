@@ -1,4 +1,4 @@
-import styles from './play-button.module.scss';
+import styles from './PlayButton.module.scss';
 
 export interface PlayButtonProps {
   isPlaying: boolean;

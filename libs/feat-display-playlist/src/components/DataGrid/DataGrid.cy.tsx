@@ -1,5 +1,5 @@
 import { Track } from '@spotify-player/api';
-import DataGrid from './data-grid';
+import DataGrid from './DataGrid';
 
 describe('<DataGrid />', () => {
   it('should render successfully', () => {
@@ -7,8 +7,8 @@ describe('<DataGrid />', () => {
     cy.mount(
       <DataGrid
         tracks={tracks}
-        handleFav={() => {}}
-        handlePlay={() => {}}
+        onFav={() => {}}
+        onPlay={() => {}}
         playingTrackId={null}
       />
     );

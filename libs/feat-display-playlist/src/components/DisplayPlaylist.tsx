@@ -1,8 +1,8 @@
 import { Playlist, Track } from '@spotify-player/api';
 import { useEffect, useState } from 'react';
-import DataGrid from './DataGrid/data-grid';
+import DataGrid from './DataGrid/DataGrid';
 import Hero from './Hero/hero';
-import styles from './display-playlist.module.scss';
+import styles from './DisplayPlaylist.module.scss';
 import SearchInput from './SearchInput/SearchInput';
 
 /* eslint-disable-next-line */
@@ -10,17 +10,17 @@ export interface PlaylistProps {
   tracks: Track[];
   playingTrackId: string | null;
   playlist: Playlist;
-  handlePlay: (trackId: string) => void;
-  handleFav: (trackId: string) => void;
-  handlePlayAll: () => void;
+  onPlay: (trackId: string) => void;
+  onFav: (trackId: string) => void;
+  onPlayAll: () => void;
 }
 
 export function DisplayPlaylist({
   tracks,
   playingTrackId,
-  handlePlay,
-  handleFav,
-  handlePlayAll,
+  onPlay,
+  onFav,
+  onPlayAll,
   playlist,
 }: PlaylistProps) {
   const [serchedTerm, setSerchedTerm] = useState('');
@@ -41,7 +41,7 @@ export function DisplayPlaylist({
         playlist={playlist}
         trackCount={tracks.length}
         totalDuration_ms={totalDuration_ms}
-        handlePlayAll={handlePlayAll}
+        onPlayAll={onPlayAll}
       />
       <div className="row">
         <div className="col-auto ms-auto">
@@ -55,8 +55,8 @@ export function DisplayPlaylist({
       <DataGrid
         tracks={filteredTracks}
         playingTrackId={playingTrackId}
-        handleFav={handleFav}
-        handlePlay={handlePlay}
+        onFav={onFav}
+        onPlay={onPlay}
       />
     </div>
   );
