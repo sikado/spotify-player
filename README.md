@@ -2,13 +2,14 @@
 
 ## Development server
 
-Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `npx nx serve spotify-player` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 ## Tech Stack
 
-- React/Nextjs with Apollo-Client & Redux toolkit
+- React/Nextjs with Apollo-Client & Redux Toolkit
 - Jest for unit tests without DOM
 - Cypress for DOM testing
+- Playwright for E2E (run on checklyHQ)
 - Nx to manage the repo
 - Hosting on Vercel
 
@@ -26,7 +27,7 @@ Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:420
 
 ## Limitation & Pref optimisation
 
--
+- L'appel API est fait client-side (pour simplifier l'hydratation du store). Mais il serait plus performant de le faire en SSR
 
 ## Unhandled edge cases
 
