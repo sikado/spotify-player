@@ -11,6 +11,13 @@
       "options": {
         "lintFilePatterns": ["libs/feat-player/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "component-test": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "libs/feat-player/cypress.config.ts",
+        "testingType": "component"
+      }
     }
   }
 }

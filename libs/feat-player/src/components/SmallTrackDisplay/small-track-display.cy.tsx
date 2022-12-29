@@ -1,4 +1,4 @@
-import { Track } from 'src/services/playlist';
+import { Track } from '@spotify-player/api';
 import SmallTrackDisplay from './small-track-display';
 
 describe('<SmallTrackDisplay />', () => {
@@ -9,6 +9,7 @@ describe('<SmallTrackDisplay />', () => {
     preview_url: '',
     id: '',
     added_at: '',
+    duration_ms: 0,
   };
 
   it('should render successfully', () => {
