@@ -1,6 +1,4 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
+import ActiveLink from '../ActiveLink/ActiveLink';
 import styles from './NavBar.module.scss';
 
 /* eslint-disable-next-line */
@@ -8,15 +6,11 @@ export interface NavBarProps {}
 
 export function NavBar(_props: NavBarProps) {
   return (
-    <nav className={styles['container'] + ' bg-dark'}>
+    <nav className={`${styles.container} bg-dark`}>
       <div className="container-fluid">
         <ul className="nav justify-content-center">
           <li className="nav-item">
-            <ActiveLink
-              href="/"
-              className="nav-link"
-              activeClassName={styles.activeLink}
-            >
+            <ActiveLink href="/" className="nav-link" activeClassName={styles.activeLink}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -34,11 +28,7 @@ export function NavBar(_props: NavBarProps) {
             </ActiveLink>
           </li>
           <li className="nav-item">
-            <ActiveLink
-              href="/favorites"
-              activeClassName={styles.activeLink}
-              className="nav-link"
-            >
+            <ActiveLink href="/favorites" activeClassName={styles.activeLink} className="nav-link">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -47,10 +37,7 @@ export function NavBar(_props: NavBarProps) {
                 className="bi bi-heart-fill"
                 viewBox="0 0 16 16"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-                />
+                <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
               </svg>
               Favorites
             </ActiveLink>
@@ -58,29 +45,6 @@ export function NavBar(_props: NavBarProps) {
         </ul>
       </div>
     </nav>
-  );
-}
-
-interface ActiveLinkProps {
-  children: ReactNode;
-  activeClassName: string;
-  href: string;
-  className: string;
-}
-
-/** Add the `activeClassName` if the link href === the current URL */
-function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
-  const { pathname } = useRouter();
-
-  const className =
-    pathname === props.href
-      ? `${props.className} ${activeClassName}`.trim()
-      : props.className;
-
-  return (
-    <Link {...props} className={className}>
-      {children}
-    </Link>
   );
 }
 

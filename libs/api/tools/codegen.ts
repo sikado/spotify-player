@@ -9,8 +9,8 @@ const config: CodegenConfig = {
     '../src/lib/generated-types.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
       config: {
-        typesPrefix: 'gql_'
-      }
+        typesPrefix: 'gql_',
+      },
     },
   },
   ignoreNoDocuments: true,

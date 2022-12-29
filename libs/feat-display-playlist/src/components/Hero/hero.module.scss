@@ -1,9 +1,5 @@
 .container {
   padding-top: 10px;
   background: rgb(2, 0, 36);
-  background: linear-gradient(
-    180deg,
-    var(--bs-gray-800) 0%,
-    var(--bs-dark) 100%
-  );
+  background: linear-gradient(180deg, var(--bs-gray-800) 0%, var(--bs-dark) 100%);
 }

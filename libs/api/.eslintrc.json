@@ -1,10 +1,12 @@
 {
   "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": ["!**/*", "generated-types.ts"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
+      "rules": {
+        "camelcase": ["error", { "allow": ["^gql_"] }]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

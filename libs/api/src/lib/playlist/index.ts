@@ -1,2 +1,3 @@
-export * from './models';
 export * from './fetchPlaylist';
+export * from './models';
+

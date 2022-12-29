@@ -13,6 +13,7 @@ export default function SearchInput({ onChange }: SearchInputProps) {
         type="search"
         placeholder="Search"
         name="search"
+        id="search"
       />
       <label htmlFor="search">Search</label>
     </div>

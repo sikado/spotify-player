@@ -1,4 +1,5 @@
-import { mount } from 'cypress/react'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { mount } from 'cypress/react';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -7,7 +8,7 @@ import { mount } from 'cypress/react'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
     }
   }
 }

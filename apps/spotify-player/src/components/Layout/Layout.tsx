@@ -1,3 +1,4 @@
+import Player from '@spotify-player/feat-player';
 import { ReactNode, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import {
@@ -10,7 +11,6 @@ import {
   selectPlayingTrack,
 } from '../../state/slices/playlist';
 import NavBar from '../NavBar/NavBar';
-import Player from '@spotify-player/feat-player';
 
 export function Layout({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();

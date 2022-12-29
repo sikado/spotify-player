@@ -1,4 +1,3 @@
-import React from 'react';
 import PlayButton from './PlayButton';
 
 describe('<PlayButton />', () => {
@@ -12,7 +11,7 @@ describe('<PlayButton />', () => {
     cy.get(`${buttonSelector} svg`).should('have.class', 'bi-play-fill');
   });
   it('should display pause icon on isPlaying == true', () => {
-    cy.mount(<PlayButton isPlaying={true} onClick={() => {}} />);
+    cy.mount(<PlayButton isPlaying onClick={() => {}} />);
     cy.get(`${buttonSelector} svg`).should('have.class', 'bi-pause-fill');
   });
   it('should fire a onClick event', () => {

@@ -1,6 +1,6 @@
-import styles from './SmallTrackDisplay.module.scss';
-import Image from 'next/image';
 import { Track } from '@spotify-player/api';
+import Image from 'next/image';
+import styles from './SmallTrackDisplay.module.scss';
 
 /* eslint-disable-next-line */
 export interface SmallTrackDisplayProps {
@@ -8,7 +8,7 @@ export interface SmallTrackDisplayProps {
   size?: 'sm' | 'md' | 'lg'; // Default to 'md'
 }
 
-export function SmallTrackDisplay({ track, size }: SmallTrackDisplayProps) {
+export function SmallTrackDisplay({ track, size = 'md' }: SmallTrackDisplayProps) {
   const albumCoverSrc: string | null = track.album.imageUrl ?? null;
   const displayArtists = track.artists.join(', ');
 
@@ -32,8 +32,8 @@ export function SmallTrackDisplay({ track, size }: SmallTrackDisplayProps) {
           <div
             style={{
               position: 'relative',
-              width: picSize + 'px',
-              height: picSize + 'px',
+              width: `${picSize}px`,
+              height: `${picSize}px`,
             }}
           >
             {albumCoverSrc !== null ? (
@@ -55,7 +55,7 @@ export function SmallTrackDisplay({ track, size }: SmallTrackDisplayProps) {
                 focusable="false"
               >
                 <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#868e96"></rect>
+                <rect width="100%" height="100%" fill="#868e96" />
               </svg>
             )}
           </div>

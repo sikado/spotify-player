@@ -4,22 +4,15 @@ import DataRow from './DataRow';
 describe('<DataRow />', () => {
   it('should render successfully', () => {
     const track: Track = {
-      added_at: '2013-03-10T02:00:00Z',
+      addedAt: '2013-03-10T02:00:00Z',
       album: { name: '' },
       artists: [''],
-      duration_ms: 0,
+      durationMs: 0,
       id: '',
       isLiked: false,
       name: '',
-      preview_url: '',
+      previewUrl: '',
     };
-    cy.mount(
-      <DataRow
-        track={track}
-        isPlaying={false}
-        onFav={() => {}}
-        onPlay={() => {}}
-      />
-    );
+    cy.mount(<DataRow track={track} isPlaying={false} onFav={() => {}} onPlay={() => {}} />);
   });
 });

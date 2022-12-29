@@ -6,10 +6,10 @@ describe('<SmallTrackDisplay />', () => {
     name: 'Track 1',
     artists: ['Various Artists'],
     album: { name: "La compile de l'été" },
-    preview_url: '',
+    previewUrl: '',
     id: '',
-    added_at: '',
-    duration_ms: 0,
+    addedAt: '',
+    durationMs: 0,
     isLiked: false,
   };
 
@@ -22,18 +22,13 @@ describe('<SmallTrackDisplay />', () => {
       ...track,
       album: {
         ...track.album,
-        imageUrl:
-          'https://i.scdn.co/image/ab67616d0000b2732beee88e97ca512ec5542fb8',
+        imageUrl: 'https://i.scdn.co/image/ab67616d0000b2732beee88e97ca512ec5542fb8',
       },
     };
 
     console.log(customTrack);
 
     cy.mount(<SmallTrackDisplay track={customTrack} />);
-    cy.get('[data-cy="cover"]').should(
-      'have.attr',
-      'src',
-      customTrack.album.imageUrl
-    );
+    cy.get('[data-cy="cover"]').should('have.attr', 'src', customTrack.album.imageUrl);
   });
 });

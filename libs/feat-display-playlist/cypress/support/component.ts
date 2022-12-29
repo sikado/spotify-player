@@ -16,6 +16,7 @@
 // Import commands.ts using ES2015 syntax:
 import './commands';
 
-import { mount } from 'cypress/react18'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { mount } from 'cypress/react18';
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('mount', mount);

@@ -1,20 +1,11 @@
 {
-  "extends": [
-    "plugin:@nrwl/nx/react-typescript",
-    "next",
-    "next/core-web-vitals",
-    "plugin:cypress/recommended",
-    "../../.eslintrc.json"
-  ],
+  "extends": ["plugin:@nrwl/nx/react-typescript", "next", "next/core-web-vitals", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*", ".next/**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@next/next/no-html-link-for-pages": [
-          "error",
-          "apps/spotify-player/src/pages"
-        ]
+        "@next/next/no-html-link-for-pages": ["error", "apps/spotify-player/src/pages"]
       }
     },
     {

@@ -9,12 +9,7 @@ export interface DataGridProps {
   onFav: (trackId: string) => void;
 }
 
-export function DataGrid({
-  tracks,
-  playingTrackId,
-  onPlay,
-  onFav,
-}: DataGridProps) {
+export function DataGrid({ tracks, playingTrackId, onPlay, onFav }: DataGridProps) {
   let tBody: JSX.Element | JSX.Element[] = (
     <tr>
       <td colSpan={10}>Playlist vide</td>
@@ -23,23 +18,17 @@ export function DataGrid({
 
   if (tracks && tracks.length > 0) {
     tBody = tracks.map((track) => (
-      <DataRow
-        key={track.id}
-        track={track}
-        isPlaying={playingTrackId === track.id}
-        onPlay={onPlay}
-        onFav={onFav}
-      />
+      <DataRow key={track.id} track={track} isPlaying={playingTrackId === track.id} onPlay={onPlay} onFav={onFav} />
     ));
   }
 
   return (
-    <div className={styles['container']}>
+    <div className={styles.container}>
       <table className="table table-hover align-middle">
         <thead>
           <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col" aria-label="play" />
+            <th scope="col" aria-label="like" />
             <th scope="col">Title</th>
             <th scope="col">Artiste</th>
             <th scope="col">Album</th>

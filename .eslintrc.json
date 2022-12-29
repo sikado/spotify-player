@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nrwl/nx", "prettier"],
+  "extends": ["airbnb", "plugin:prettier/recommended", "plugin:cypress/recommended"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -18,13 +19,31 @@
               }
             ]
           }
-        ]
+        ],
+        "comma-dangle": ["error", "never"],
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "import/no-named-as-default": "off",
+        "prettier/prettier": [
+          "warn",
+          {
+            "singleQuote": true,
+            "semi": true,
+            "trailingComma": "es5",
+            "printWidth": 120
+          }
+        ],
+        "no-restricted-exports": "off"
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "extends": ["plugin:@nrwl/nx/typescript", "airbnb/hooks", "plugin:react/jsx-runtime"],
+      "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

@@ -1,4 +1,4 @@
-import styles from './index.module.scss';
+import DisplayPlaylist from '@spotify-player/feat-display-playlist';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
   playAllTrack,
@@ -8,7 +8,7 @@ import {
   selectTracks,
   toggleFavoriteTrack,
 } from '../state/slices/playlist';
-import DisplayPlaylist from '@spotify-player/feat-display-playlist';
+import styles from './index.module.scss';
 
 export function Index() {
   const dispatch = useAppDispatch();

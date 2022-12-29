@@ -1,10 +1,17 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -69,41 +76,64 @@ export type gql_Track = {
   preview_url?: Maybe<Scalars['String']>;
 };
 
-export type gql_GetPlaylistQueryVariables = Exact<{ [key: string]: never; }>;
+export type gql_GetPlaylistQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type gql_GetPlaylistQuery = { __typename?: 'Query', playlist: { __typename?: 'Playlist', id: string, name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null, tracks?: Array<{ __typename?: 'PlaylistTrack', added_at: string, track: { __typename?: 'Track', preview_url?: string | null, id: string, name: string, duration_ms: number, artists?: Array<{ __typename?: 'Artist', name: string } | null> | null, album?: { __typename?: 'Album', name: string, images?: Array<{ __typename?: 'Image', url: string } | null> | null } | null } } | null> | null } };
-
+export type gql_GetPlaylistQuery = {
+  __typename?: 'Query';
+  playlist: {
+    __typename?: 'Playlist';
+    id: string;
+    name: string;
+    images?: Array<{ __typename?: 'Image'; url: string } | null> | null;
+    tracks?: Array<{
+      __typename?: 'PlaylistTrack';
+      added_at: string;
+      track: {
+        __typename?: 'Track';
+        preview_url?: string | null;
+        id: string;
+        name: string;
+        duration_ms: number;
+        artists?: Array<{ __typename?: 'Artist'; name: string } | null> | null;
+        album?: {
+          __typename?: 'Album';
+          name: string;
+          images?: Array<{ __typename?: 'Image'; url: string } | null> | null;
+        } | null;
+      };
+    } | null> | null;
+  };
+};
 
 export const GetPlaylistDocument = gql`
-    query getPlaylist {
-  playlist {
-    id
-    name
-    images {
-      url
-    }
-    tracks {
-      added_at
-      track {
-        preview_url
-        id
-        name
-        duration_ms
-        artists {
+  query getPlaylist {
+    playlist {
+      id
+      name
+      images {
+        url
+      }
+      tracks {
+        added_at
+        track {
+          preview_url
+          id
           name
-        }
-        album {
-          name
-          images {
-            url
+          duration_ms
+          artists {
+            name
+          }
+          album {
+            name
+            images {
+              url
+            }
           }
         }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetPlaylistQuery__
@@ -120,14 +150,35 @@ export const GetPlaylistDocument = gql`
  *   },
  * });
  */
-export function useGetPlaylistQuery(baseOptions?: Apollo.QueryHookOptions<gql_GetPlaylistQuery, gql_GetPlaylistQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<gql_GetPlaylistQuery, gql_GetPlaylistQueryVariables>(GetPlaylistDocument, options);
+export function useGetPlaylistQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    gql_GetPlaylistQuery,
+    gql_GetPlaylistQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<gql_GetPlaylistQuery, gql_GetPlaylistQueryVariables>(
+    GetPlaylistDocument,
+    options
+  );
 }
-export function useGetPlaylistLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<gql_GetPlaylistQuery, gql_GetPlaylistQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<gql_GetPlaylistQuery, gql_GetPlaylistQueryVariables>(GetPlaylistDocument, options);
+export function useGetPlaylistLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    gql_GetPlaylistQuery,
+    gql_GetPlaylistQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    gql_GetPlaylistQuery,
+    gql_GetPlaylistQueryVariables
+  >(GetPlaylistDocument, options);
 }
 export type GetPlaylistQueryHookResult = ReturnType<typeof useGetPlaylistQuery>;
-export type GetPlaylistLazyQueryHookResult = ReturnType<typeof useGetPlaylistLazyQuery>;
-export type GetPlaylistQueryResult = Apollo.QueryResult<gql_GetPlaylistQuery, gql_GetPlaylistQueryVariables>;
+export type GetPlaylistLazyQueryHookResult = ReturnType<
+  typeof useGetPlaylistLazyQuery
+>;
+export type GetPlaylistQueryResult = Apollo.QueryResult<
+  gql_GetPlaylistQuery,
+  gql_GetPlaylistQueryVariables
+>;

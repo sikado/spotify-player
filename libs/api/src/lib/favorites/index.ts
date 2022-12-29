@@ -1,1 +1,1 @@
-export * from './fetchFavorites'
+export * from './fetchFavorites';

@@ -7,12 +7,8 @@ export interface PlayButtonProps {
 
 export function PlayButton({ isPlaying, onClick }: PlayButtonProps) {
   return (
-    <div className={styles['container']}>
-      <button
-        className="btn btn-link text-primary btn-sm"
-        onClick={onClick}
-        data-cy="play"
-      >
+    <div className={styles.container}>
+      <button className="btn btn-link text-primary btn-sm" type="button" onClick={onClick} data-cy="play">
         {isPlaying ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"

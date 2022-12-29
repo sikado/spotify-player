@@ -6,13 +6,6 @@ describe('<Hero />', () => {
     const playlist: Playlist = {
       name: 'playlist name',
     };
-    cy.mount(
-      <Hero
-        playlist={playlist}
-        trackCount={0}
-        totalDuration_ms={0}
-        onPlayAll={() => {}}
-      />
-    );
+    cy.mount(<Hero playlist={playlist} trackCount={0} totalDurationMs={0} onPlayAll={() => {}} />);
   });
 });

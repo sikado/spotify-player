@@ -13,7 +13,7 @@ export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  }).format(Date.parse(track.added_at));
+  }).format(Date.parse(track.addedAt));
 
   const heart = track.isLiked ? (
     <svg
@@ -24,10 +24,7 @@ export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
       className="bi bi-heart-fill"
       viewBox="0 0 16 16"
     >
-      <path
-        fillRule="evenodd"
-        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-      />
+      <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
     </svg>
   ) : (
     <svg
@@ -42,10 +39,10 @@ export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
     </svg>
   );
 
-  let trClassName = styles['container'];
+  let trClassName = styles.container;
 
   if (isPlaying) {
-    trClassName += ' ' + styles['active'];
+    trClassName += ` ${styles.active}`;
   }
 
   return (
@@ -63,7 +60,7 @@ export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
         </svg>
       </td>
       <td onClick={() => onFav(track.id)}>{heart}</td>
-      <td className={styles['title'] + ' text-truncate'}>{track.name}</td>
+      <td className={`${styles.title} text-truncate`}>{track.name}</td>
       <td className="text-truncate">{track.artists.join(', ') ?? ''}</td>
       <td className="text-truncate">{track.album.name}</td>
       <td className="text-truncate">{formatedDate}</td>
