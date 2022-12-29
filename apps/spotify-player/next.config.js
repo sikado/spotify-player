@@ -21,6 +21,8 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ['@spotify-player/feat-player', '@spotify-player/feat-display-playlist'],
+  reactStrictMode: true,
 };
 
 module.exports = withNx(nextConfig);
