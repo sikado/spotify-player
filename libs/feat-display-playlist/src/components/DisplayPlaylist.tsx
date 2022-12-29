@@ -1,4 +1,4 @@
-import { Playlist, Track } from '@spotify-player/api';
+import { Playlist, Track } from '@spotify-player/core';
 import { useEffect, useState } from 'react';
 import DataGrid from './DataGrid/DataGrid';
 import styles from './DisplayPlaylist.module.scss';

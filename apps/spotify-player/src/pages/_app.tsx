@@ -1,9 +1,9 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.scss';
 import { Provider } from 'react-redux';
-import { store } from '../state/store';
 import Layout from '../components/Layout/Layout';
+import { store } from '../state/store';
+import './styles.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,4 +1,4 @@
-import { Playlist } from '@spotify-player/api';
+import { Playlist } from '@spotify-player/core';
 import DisplayPlaylist from '@spotify-player/feat-display-playlist';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {

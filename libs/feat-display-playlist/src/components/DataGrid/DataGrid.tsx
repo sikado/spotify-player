@@ -1,4 +1,4 @@
-import { Track } from '@spotify-player/api';
+import { Track } from '@spotify-player/core';
 import DataRow from '../DataRow/DataRow';
 import styles from './DataGrid.module.scss';
 

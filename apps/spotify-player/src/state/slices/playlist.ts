@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchFavoritesIds, fetchPlaylist, Playlist, saveFavoritesIds, Track } from '@spotify-player/api';
+import { fetchFavoritesIds, fetchPlaylist, saveFavoritesIds } from '@spotify-player/api';
+import { Playlist, Track } from '@spotify-player/core';
 import type { RootState } from '../store';
 
 export const SLICE_NAME = 'playlist';

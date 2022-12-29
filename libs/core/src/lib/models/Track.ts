@@ -1,13 +1,4 @@
-export interface Album {
-  name: string;
-  imageUrl?: string;
-}
-
-export interface Playlist {
-  id?: string;
-  name: string;
-  imageUrl?: string;
-}
+import { Album } from './Album';
 
 export interface Track {
   name: string;

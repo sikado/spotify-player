@@ -1,4 +1,4 @@
-import { Track } from '@spotify-player/api';
+import { Track } from '@spotify-player/core';
 import Player from './Player';
 
 describe('<Player />', () => {

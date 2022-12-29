@@ -1,4 +1,4 @@
-import { Playlist } from '@spotify-player/api';
+import { Playlist } from '@spotify-player/core';
 import Image from 'next/image';
 import styles from './Hero.module.scss';
 

@@ -1,6 +1,6 @@
+import { Playlist, Track } from '@spotify-player/core';
 import { initializeApollo } from '../apollo-client';
 import { GetPlaylistDocument, gql_GetPlaylistQuery } from '../generated-types';
-import { Playlist, Track } from './models';
 
 const apolloClient = initializeApollo();
 

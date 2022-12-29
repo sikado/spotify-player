@@ -1,4 +1,4 @@
-import { Track } from '@spotify-player/api';
+import { Track } from '@spotify-player/core';
 import { useAudio } from 'react-use';
 import PlayButton from './PlayButton/PlayButton';
 import styles from './Player.module.scss';

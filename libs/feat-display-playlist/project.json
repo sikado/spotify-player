@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/feat-display-playlist/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["feat"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
