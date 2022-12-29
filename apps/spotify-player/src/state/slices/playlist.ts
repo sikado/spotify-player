@@ -11,7 +11,6 @@ export interface PlaylistState {
   favoritesTracksIds: string[];
   currentTrackId: string | null;
   currentPlaylistIds: string[];
-  // isLoading: boolean,
 }
 
 const initialState: PlaylistState = {
@@ -20,7 +19,6 @@ const initialState: PlaylistState = {
   favoritesTracksIds: [],
   currentTrackId: null,
   currentPlaylistIds: [],
-  // isLoading: false,
 };
 
 export const fetchOncePlaylist = createAsyncThunk(`${SLICE_NAME}/fetchPlaylist`, fetchPlaylist);
@@ -57,18 +55,16 @@ export const playlistSlice = createSlice({
         ...state,
         playlist: payload.playlist,
         tracks: payload.tracks,
-        /* isLoading: false, */
       }))
       .addCase(fetchOncePlaylist.pending, (state) => ({
         ...state,
-        /* isLoading: true */
+        playlist: null,
+        tracks: null,
       }))
       .addCase(fetchOncePlaylist.rejected, (state, action) => {
         console.error(action.error);
         return {
           ...state,
-          playlist: null,
-          /* isLoading: false, */
         };
       })
       .addCase(fetchFavorites.fulfilled, (state, { payload }) => ({

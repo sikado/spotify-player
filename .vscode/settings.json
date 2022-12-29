@@ -1,4 +1,4 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "conventionalCommits.scopes": ["feat-player", "spotify-player", "e2e"]
+  "conventionalCommits.scopes": ["feat-player", "spotify-player"]
 }
