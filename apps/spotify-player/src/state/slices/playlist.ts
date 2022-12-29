@@ -27,10 +27,10 @@ export const fetchOncePlaylist = createAsyncThunk(`${SLICE_NAME}/fetchPlaylist`,
 
 export const fetchFavorites = createAsyncThunk(`${SLICE_NAME}/fetchFavoritesIds`, fetchFavoritesIds);
 
-export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: { plalistSlice: PlaylistState } }>(
+export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: { playlistSlice: PlaylistState } }>(
   `${SLICE_NAME}/toggleFavoriteTrack`,
   async (toggledTrackId, { getState }) => {
-    const localState = getState().plalistSlice;
+    const localState = getState().playlistSlice;
 
     const favoritesTracksIds = new Set(localState.favoritesTracksIds);
 
@@ -137,17 +137,19 @@ export const { playNextTrack, playPrevTrack, playTrack } = playlistSlice.actions
 export const playAllTrack = (tracks: Track[]) => playTrack({ tracks, trackId: tracks[0]?.id });
 
 // Selector
-const selectPlaylistSlice = (state: RootState) => state.plalistSlice;
+const selectPlaylistSlice = (state: RootState) => state.playlistSlice;
 
 /** Select the playlist metadata */
 export const selectPlaylistInfo = createSelector([selectPlaylistSlice], ({ playlist }) => playlist);
 
 /** Select the playlist tracks with their like status */
-export const selectTracks = createSelector([selectPlaylistSlice], ({ tracks, favoritesTracksIds }) =>
-  tracks?.map((track) => ({
-    ...track,
-    isLiked: favoritesTracksIds.includes(track.id),
-  }))
+export const selectTracks = createSelector(
+  [selectPlaylistSlice],
+  ({ tracks, favoritesTracksIds }) =>
+    tracks?.map((track) => ({
+      ...track,
+      isLiked: favoritesTracksIds.includes(track.id),
+    })) ?? null
 );
 
 /** Select the currently playing track id */
@@ -165,7 +167,10 @@ export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTra
 });
 
 /** Select the favorite tracks */
-export const selectFavoritesTracks = createSelector(selectTracks, (tracks) => tracks?.filter((track) => track.isLiked));
+export const selectFavoritesTracks = createSelector(
+  selectTracks,
+  (tracks) => tracks?.filter((track) => track.isLiked) ?? null
+);
 
 /** Select the CanSkipNext flag */
 export const selectCanSkipNext = createSelector(

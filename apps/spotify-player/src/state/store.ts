@@ -3,7 +3,7 @@ import playlistSlice from './slices/playlist';
 
 export const store = configureStore({
   reducer: {
-    plalistSlice: playlistSlice,
+    playlistSlice,
   },
   devTools: process.env.NODE_ENV === 'development',
 });

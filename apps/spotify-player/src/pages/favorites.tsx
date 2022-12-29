@@ -22,28 +22,26 @@ export function Favorites() {
 
   return (
     <div className={styles.container}>
-      {tracks == null ? (
-        <h2>Loading...</h2>
-      ) : (
-        <main>
-          <DisplayPlaylist
-            tracks={tracks}
-            playingTrackId={playingTrackId}
-            playlist={playlist}
-            onPlay={(trackId: string) => {
+      <main>
+        <DisplayPlaylist
+          tracks={tracks}
+          playingTrackId={playingTrackId}
+          playlist={playlist}
+          onPlay={(trackId: string) => {
+            if (tracks) {
               dispatch(playTrack({ tracks, trackId }));
-            }}
-            onFav={(trackId: string) => {
-              dispatch(toggleFavoriteTrack(trackId));
-            }}
-            onPlayAll={() => {
-              if (tracks.length > 0) {
-                dispatch(playAllTrack(tracks));
-              }
-            }}
-          />
-        </main>
-      )}
+            }
+          }}
+          onFav={(trackId: string) => {
+            dispatch(toggleFavoriteTrack(trackId));
+          }}
+          onPlayAll={() => {
+            if (tracks && tracks.length > 0) {
+              dispatch(playAllTrack(tracks));
+            }
+          }}
+        />
+      </main>
     </div>
   );
 }

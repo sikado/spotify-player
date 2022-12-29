@@ -2,7 +2,7 @@ import { Playlist, Track } from '@spotify-player/core';
 import { useEffect, useState } from 'react';
 import DataGrid from './DataGrid/DataGrid';
 import styles from './DisplayPlaylist.module.scss';
-import Hero from './Hero/hero';
+import Hero from './Hero/Hero';
 import SearchInput from './SearchInput/SearchInput';
 
 /**
@@ -22,9 +22,9 @@ function filterTrack(track: Track, term: string): boolean {
 
 /* eslint-disable-next-line */
 export interface PlaylistProps {
-  tracks: Track[];
+  tracks: Track[] | null;
   playingTrackId: string | null;
-  playlist: Playlist;
+  playlist: Playlist | null;
   onPlay: (trackId: string) => void;
   onFav: (trackId: string) => void;
   onPlayAll: () => void;
@@ -33,15 +33,24 @@ export interface PlaylistProps {
 export function DisplayPlaylist({ tracks, playingTrackId, onPlay, onFav, onPlayAll, playlist }: PlaylistProps) {
   const [serchedTerm, setSerchedTerm] = useState('');
   const [totalDurationMs, setTotalDurationMs] = useState(0);
-  const filteredTracks = tracks.filter((track) => filterTrack(track, serchedTerm));
+  const filteredTracks = tracks?.filter((track) => filterTrack(track, serchedTerm)) ?? null;
 
   useEffect(() => {
-    setTotalDurationMs(() => tracks.reduce((acc, val) => acc + val.durationMs, 0));
+    if (tracks) {
+      setTotalDurationMs(() => tracks.reduce((acc, val) => acc + val.durationMs, 0));
+    } else {
+      setTotalDurationMs(0);
+    }
   }, [tracks]);
 
   return (
     <div className={styles.container}>
-      <Hero playlist={playlist} trackCount={tracks.length} totalDurationMs={totalDurationMs} onPlayAll={onPlayAll} />
+      <Hero
+        playlist={playlist}
+        trackCount={tracks?.length ?? 0}
+        totalDurationMs={totalDurationMs}
+        onPlayAll={onPlayAll}
+      />
       <div className="row">
         <div className="col-auto ms-auto">
           <SearchInput

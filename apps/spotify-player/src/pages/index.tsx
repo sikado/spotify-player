@@ -19,28 +19,28 @@ export function Index() {
 
   return (
     <div className={styles.page}>
-      {playlist == null || tracks == null ? (
-        <h2>Loading...</h2>
-      ) : (
-        <main>
-          <DisplayPlaylist
-            tracks={tracks}
-            playingTrackId={playingTrackId}
-            playlist={playlist}
-            onPlay={(trackId: string) => {
+      <main>
+        <DisplayPlaylist
+          tracks={tracks}
+          playingTrackId={playingTrackId}
+          playlist={playlist}
+          onPlay={(trackId: string) => {
+            if (tracks) {
               dispatch(playTrack({ tracks, trackId }));
-            }}
-            onFav={(trackId: string) => {
+            }
+          }}
+          onFav={(trackId: string) => {
+            if (tracks) {
               dispatch(toggleFavoriteTrack(trackId));
-            }}
-            onPlayAll={() => {
-              if (tracks.length > 0) {
-                dispatch(playAllTrack(tracks));
-              }
-            }}
-          />
-        </main>
-      )}
+            }
+          }}
+          onPlayAll={() => {
+            if (tracks && tracks.length > 0) {
+              dispatch(playAllTrack(tracks));
+            }
+          }}
+        />
+      </main>
     </div>
   );
 }
