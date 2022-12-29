@@ -14,10 +14,9 @@ Run `nx serve spotify-player` for a dev server. Navigate to http://localhost:420
 
 ## ToDo
 
-- Review structure
 - Tests Cypress cpn
 - Test state
-- import cypress-axe for A11y testing
+- Review structure
 
 ## Notes
 

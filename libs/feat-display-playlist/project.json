@@ -11,6 +11,13 @@
       "options": {
         "lintFilePatterns": ["libs/feat-display-playlist/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "component-test": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "libs/feat-display-playlist/cypress.config.ts",
+        "testingType": "component"
+      }
     }
   }
 }

@@ -1,10 +1,14 @@
-import { render } from '@testing-library/react';
-
 import Hero from './hero';
 
-describe('Hero', () => {
+describe('<Hero />', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Hero />);
-    expect(baseElement).toBeTruthy();
+    cy.mount(
+      <Hero
+        name={'playlist'}
+        trackCount={0}
+        totalDuration_ms={0}
+        handlePlayAll={() => {}}
+      />
+    );
   });
 });

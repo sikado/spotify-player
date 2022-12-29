@@ -1,10 +1,16 @@
-import { render } from '@testing-library/react';
-
+import { Track } from '@spotify-player/api';
 import DataGrid from './data-grid';
 
-describe('DataGrid', () => {
+describe('<DataGrid />', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<DataGrid />);
-    expect(baseElement).toBeTruthy();
+    const tracks: (Track & { isLiked: boolean })[] = [];
+    cy.mount(
+      <DataGrid
+        tracks={tracks}
+        handleFav={() => {}}
+        handlePlay={() => {}}
+        playingTrackId={null}
+      />
+    );
   });
 });
