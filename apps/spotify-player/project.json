@@ -57,12 +57,6 @@
       "options": {
         "lintFilePatterns": ["apps/spotify-player/**/*.{ts,tsx,js,jsx}"]
       }
-    },
-    "component-test": {
-      "command": "cypress open --project apps/spotify-player --component --browser chrome"
-    },
-    "component-test-ci": {
-      "command": "cypress run --project apps/spotify-player --component --browser chrome"
     }
   },
   "tags": []

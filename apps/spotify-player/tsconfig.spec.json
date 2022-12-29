@@ -3,15 +3,8 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node", "cypress"],
+    "types": ["jest", "node"],
     "jsx": "react"
   },
-  "include": [
-    "jest.config.ts",
-    "cypress.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx",
-    "src/**/*.cy.ts",
-    "src/**/*.cy.tsx"
-  ]
+  "include": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }
