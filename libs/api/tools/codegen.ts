@@ -4,10 +4,10 @@ import { PUBLIC_API_URI } from '../../core/src';
 
 const config: CodegenConfig = {
   schema: PUBLIC_API_URI,
-  documents: ['../src/lib/*.graphql'],
+  documents: ['../src/lib/**/*.ts'],
   generates: {
-    '../src/lib/generated-types.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
+    '../src/lib/utils/generated-types.ts': {
+      plugins: ['typescript', 'typescript-operations'],
       config: {
         typesPrefix: 'gql_',
       },

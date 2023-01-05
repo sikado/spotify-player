@@ -6,7 +6,7 @@ Run `npx nx serve spotify-player` for a dev server. Navigate to http://localhost
 
 ## Tech Stack
 
-- React/Nextjs with Apollo-Client & Redux Toolkit
+- React/Nextjs with Redux Toolkit
 - Cypress for DOM testing
 - Nx to manage the repo
 - Hosting on Vercel

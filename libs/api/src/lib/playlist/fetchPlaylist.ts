@@ -1,18 +1,14 @@
 import { Playlist, Track } from '@spotify-player/core';
-import { initializeApollo } from '../apollo-client';
-import { GetPlaylistDocument, gql_GetPlaylistQuery } from '../generated-types';
-
-const apolloClient = initializeApollo();
+import fetcher from '../utils/fetcher';
+import { gql_GetPlaylistQuery } from '../utils/generated-types';
+import query from './query';
 
 // eslint-disable-next-line import/prefer-default-export
 export async function fetchPlaylist(): Promise<{
   playlist: Playlist;
   tracks: Omit<Track, 'isLiked'>[];
 }> {
-  const { data } = await apolloClient.query<gql_GetPlaylistQuery>({
-    query: GetPlaylistDocument,
-  });
-
+  const data = await fetcher<gql_GetPlaylistQuery>(query);
   const tracks =
     data.playlist.tracks?.reduce<Omit<Track, 'isLiked'>[]>((acc, playlistTrack) => {
       // Filtering out every playlistTracks without track and without preview_url
