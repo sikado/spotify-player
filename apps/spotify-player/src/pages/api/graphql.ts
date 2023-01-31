@@ -3,11 +3,9 @@ import { EnvelopArmorPlugin } from '@escape.tech/graphql-armor';
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection';
 import { usePersistedOperations } from '@graphql-yoga/plugin-persisted-operations';
 import { useResponseCache } from '@graphql-yoga/plugin-response-cache';
-import { GRAPHQL_FILES, serverPersistedQuery } from '@spotify-player/core';
+import { schema, serverPersistedQuery } from '@spotify-player/core';
 import { SpotifyApiWrapper } from '@spotify-player/server-api';
-import { readFileSync } from 'fs';
 import { createSchema, createYoga } from 'graphql-yoga';
-import { join } from 'path';
 
 export const config = {
   api: {
@@ -45,7 +43,7 @@ if (process.env.NODE_ENV === 'production') {
 
 export default createYoga({
   schema: createSchema({
-    typeDefs: readFileSync(join(GRAPHQL_FILES, 'schema.graphql'), 'utf-8'),
+    typeDefs: schema,
     resolvers: {
       Query: {
         playlist: () => SpotifyApiWrapper.getPlaylist('1cjaC8QSUT1ZoR9KG1TrXC'),
