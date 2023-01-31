@@ -29,6 +29,8 @@ export class SpotifyApiWrapper {
       const instance = new this();
       await instance.auth();
       this.instance = instance;
+    } else {
+      console.debug('Cached token hit');
     }
 
     return this.instance;

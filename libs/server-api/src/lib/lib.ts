@@ -8,7 +8,7 @@ export default async function getSpotifyApi() {
 
   const tokenData = await spotifyApi.clientCredentialsGrant();
   // eslint-disable-next-line no-console
-  console.debug(`token retrived. Expiring in ${tokenData.body.expires_in}`);
+  console.debug('New token retrived');
   spotifyApi.setAccessToken(tokenData.body.access_token);
   return spotifyApi;
 }
