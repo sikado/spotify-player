@@ -4,9 +4,7 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "camelcase": ["error", { "allow": ["^gql_"] }]
-      }
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],

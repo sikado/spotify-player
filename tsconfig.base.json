@@ -18,7 +18,8 @@
       "@spotify-player/api": ["libs/api/src/index.ts"],
       "@spotify-player/core": ["libs/core/src/index.ts"],
       "@spotify-player/feat-display-playlist": ["libs/feat-display-playlist/src/index.ts"],
-      "@spotify-player/feat-player": ["libs/feat-player/src/index.ts"]
+      "@spotify-player/feat-player": ["libs/feat-player/src/index.ts"],
+      "@spotify-player/server-api": ["libs/server-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
