@@ -1,8 +1,8 @@
-import { PUBLIC_API_URI } from '@spotify-player/core';
+import { API_URI } from '@spotify-player/core';
 import fetch from 'cross-fetch';
 
 const fetcher = <T = unknown>(query: string): Promise<T> =>
-  fetch(PUBLIC_API_URI, {
+  fetch(API_URI, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',

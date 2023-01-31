@@ -11,10 +11,12 @@ import {
 import styles from './favorites.module.scss';
 
 export function Favorites() {
-  const tracks = useAppSelector(selectFavoritesTracks);
+  const playlistTracks = useAppSelector(selectFavoritesTracks);
   const playingTrackId = useAppSelector(selectPlayingTrackId);
 
+  // TODO handle "fav" playlist cleaner
   const playlist: Playlist = {
+    id: '',
     name: 'Favorites',
   };
 
@@ -24,20 +26,20 @@ export function Favorites() {
     <div className={styles.container}>
       <main>
         <DisplayPlaylist
-          tracks={tracks}
+          playlistTracks={playlistTracks}
           playingTrackId={playingTrackId}
           playlist={playlist}
           onPlay={(trackId: string) => {
-            if (tracks) {
-              dispatch(playTrack({ tracks, trackId }));
+            if (playlistTracks) {
+              dispatch(playTrack({ playlistTracks, trackId }));
             }
           }}
           onFav={(trackId: string) => {
             dispatch(toggleFavoriteTrack(trackId));
           }}
           onPlayAll={() => {
-            if (tracks && tracks.length > 0) {
-              dispatch(playAllTrack(tracks));
+            if (playlistTracks && playlistTracks.length > 0) {
+              dispatch(playAllTrack(playlistTracks));
             }
           }}
         />

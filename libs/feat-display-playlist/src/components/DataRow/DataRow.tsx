@@ -1,19 +1,25 @@
-import { Track } from '@spotify-player/core';
+import { LikedPlaylistTrack } from '@spotify-player/core';
 import styles from './DataRow.module.scss';
 
 export interface DataRowProps {
-  track: Track;
+  playlistTrack: LikedPlaylistTrack;
   isPlaying: boolean;
   onPlay: (trackId: string) => void;
   onFav: (trackId: string) => void;
 }
 
-export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
-  const formatedDate = new Intl.DateTimeFormat('default', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(Date.parse(track.addedAt));
+export function DataRow({ playlistTrack: { track, added_at }, isPlaying, onPlay, onFav }: DataRowProps) {
+  // TODO make added_at mandatory
+
+  const formatedDate =
+    // eslint-disable-next-line camelcase
+    added_at !== ''
+      ? new Intl.DateTimeFormat('default', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        }).format(Date.parse(added_at))
+      : null;
 
   const heart = track.isLiked ? (
     <svg
@@ -61,9 +67,9 @@ export function DataRow({ track, isPlaying, onPlay, onFav }: DataRowProps) {
       </td>
       <td onClick={() => onFav(track.id)}>{heart}</td>
       <td className={`${styles.title} text-truncate`}>{track.name}</td>
-      <td className="text-truncate">{track.artists.join(', ') ?? ''}</td>
-      <td className="text-truncate">{track.album.name}</td>
-      <td className="text-truncate">{formatedDate}</td>
+      <td className="text-truncate">{track.artists?.map((a) => a?.name).join(', ') ?? ''}</td>
+      <td className="text-truncate">{track.album?.name ?? ''}</td>
+      <td className="text-truncate">{formatedDate ?? ''}</td>
     </tr>
   );
 }

@@ -15,8 +15,10 @@ export interface PlayerProps {
 }
 
 export function Player({ track, canSkipNext, canSkipPrev, onSkipNext, onSkipPrev }: PlayerProps) {
+  // TODO: disable player if `preview_url` == null
   const [audio, state, controls] = useAudio({
-    src: track.previewUrl,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    src: track.preview_url!,
     autoPlay: true,
     onEnded: () => {
       onSkipNext();

@@ -5,7 +5,7 @@ import {
   playTrack,
   selectPlayingTrackId,
   selectPlaylistInfo,
-  selectTracks,
+  selectPlaylistTracks,
   toggleFavoriteTrack,
 } from '../state/slices/playlist';
 import styles from './index.module.scss';
@@ -14,29 +14,29 @@ export function Index() {
   const dispatch = useAppDispatch();
 
   const playlist = useAppSelector(selectPlaylistInfo);
-  const tracks = useAppSelector(selectTracks);
+  const playlistTracks = useAppSelector(selectPlaylistTracks);
   const playingTrackId = useAppSelector(selectPlayingTrackId);
 
   return (
     <div className={styles.page}>
       <main>
         <DisplayPlaylist
-          tracks={tracks}
+          playlistTracks={playlistTracks}
           playingTrackId={playingTrackId}
           playlist={playlist}
           onPlay={(trackId: string) => {
-            if (tracks) {
-              dispatch(playTrack({ tracks, trackId }));
+            if (playlistTracks) {
+              dispatch(playTrack({ playlistTracks, trackId }));
             }
           }}
           onFav={(trackId: string) => {
-            if (tracks) {
+            if (playlistTracks) {
               dispatch(toggleFavoriteTrack(trackId));
             }
           }}
           onPlayAll={() => {
-            if (tracks && tracks.length > 0) {
-              dispatch(playAllTrack(tracks));
+            if (playlistTracks && playlistTracks.length > 0) {
+              dispatch(playAllTrack(playlistTracks));
             }
           }}
         />

@@ -1,4 +1,4 @@
-import { Playlist, Track } from '@spotify-player/core';
+import { LikedPlaylistTrack, Playlist, Track } from '@spotify-player/core';
 import { useEffect, useState } from 'react';
 import DataGrid from './DataGrid/DataGrid';
 import styles from './DisplayPlaylist.module.scss';
@@ -17,12 +17,18 @@ function filterTrack(track: Track, term: string): boolean {
   }
 
   const normalizedTerm = term.toLowerCase();
-  return [track.name, track.album.name, ...track.artists].some((item) => item.toLowerCase().includes(normalizedTerm));
+  // TODO test filter on undefined album OR artists
+  return (
+    [track.name, track.album?.name, ...(track.artists?.map((a) => a?.name) ?? [])]
+      .filter((i) => i != null)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .some((item) => item!.toLowerCase().includes(normalizedTerm))
+  );
 }
 
 /* eslint-disable-next-line */
 export interface PlaylistProps {
-  tracks: Track[] | null;
+  playlistTracks: LikedPlaylistTrack[] | null;
   playingTrackId: string | null;
   playlist: Playlist | null;
   onPlay: (trackId: string) => void;
@@ -30,24 +36,24 @@ export interface PlaylistProps {
   onPlayAll: () => void;
 }
 
-export function DisplayPlaylist({ tracks, playingTrackId, onPlay, onFav, onPlayAll, playlist }: PlaylistProps) {
+export function DisplayPlaylist({ playlistTracks, playingTrackId, onPlay, onFav, onPlayAll, playlist }: PlaylistProps) {
   const [serchedTerm, setSerchedTerm] = useState('');
   const [totalDurationMs, setTotalDurationMs] = useState(0);
-  const filteredTracks = tracks?.filter((track) => filterTrack(track, serchedTerm)) ?? null;
+  const filteredTracks = playlistTracks?.filter(({ track }) => filterTrack(track, serchedTerm)) ?? null;
 
   useEffect(() => {
-    if (tracks) {
-      setTotalDurationMs(() => tracks.reduce((acc, val) => acc + val.durationMs, 0));
+    if (playlistTracks) {
+      setTotalDurationMs(() => playlistTracks.reduce((acc, { track }) => acc + (track.duration_ms ?? 0), 0));
     } else {
       setTotalDurationMs(0);
     }
-  }, [tracks]);
+  }, [playlistTracks]);
 
   return (
     <div className={styles.container}>
       <Hero
         playlist={playlist}
-        trackCount={tracks?.length ?? 0}
+        trackCount={playlistTracks?.length ?? 0}
         totalDurationMs={totalDurationMs}
         onPlayAll={onPlayAll}
       />
@@ -60,7 +66,7 @@ export function DisplayPlaylist({ tracks, playingTrackId, onPlay, onFav, onPlayA
           />
         </div>
       </div>
-      <DataGrid tracks={filteredTracks} playingTrackId={playingTrackId} onFav={onFav} onPlay={onPlay} />
+      <DataGrid playlistTracks={filteredTracks} playingTrackId={playingTrackId} onFav={onFav} onPlay={onPlay} />
     </div>
   );
 }

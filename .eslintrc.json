@@ -33,7 +33,8 @@
             "printWidth": 120
           }
         ],
-        "no-restricted-exports": "off"
+        "no-restricted-exports": "off",
+        "camelcase": ["warn", { "ignoreDestructuring": true }]
       }
     },
     {

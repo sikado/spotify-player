@@ -30,8 +30,9 @@ export function Hero({ playlist, trackCount, totalDurationMs, onPlayAll }: HeroP
     </svg>
   );
 
-  if (playlist?.imageUrl) {
-    coverImage = <Image src={playlist.imageUrl} width={120} height={120} alt="Playlist cover" />;
+  const imageUrl = playlist?.images?.[0]?.url;
+  if (imageUrl) {
+    coverImage = <Image src={imageUrl} width={120} height={120} alt="Playlist cover" />;
   }
 
   return (

@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchFavoritesIds, fetchPlaylist, saveFavoritesIds } from '@spotify-player/api';
-import { Playlist, Track } from '@spotify-player/core';
+import { Playlist, PlaylistTrack } from '@spotify-player/core';
 import type { RootState } from '../store';
 
 export const SLICE_NAME = 'playlist';
 
 export interface PlaylistState {
-  playlist: Playlist | null;
-  tracks: Omit<Track, 'isLiked'>[] | null;
+  playlist: Omit<Playlist, 'tracks'> | null;
+  playlistTracks: PlaylistTrack[] | null;
   favoritesTracksIds: string[];
   currentTrackId: string | null;
   currentPlaylistIds: string[];
@@ -15,7 +15,7 @@ export interface PlaylistState {
 
 const initialState: PlaylistState = {
   playlist: null,
-  tracks: null,
+  playlistTracks: null,
   favoritesTracksIds: [],
   currentTrackId: null,
   currentPlaylistIds: [],
@@ -35,7 +35,7 @@ export const toggleFavoriteTrack = createAsyncThunk<string[], string, { state: {
     // If the track is already liked
     if (favoritesTracksIds.has(toggledTrackId)) {
       favoritesTracksIds.delete(toggledTrackId);
-    } else if (localState.tracks?.find((track) => track.id === toggledTrackId)) {
+    } else if (localState.playlistTracks?.find(({ track }) => track.id === toggledTrackId)) {
       // Add the track to favorites if it exists
       favoritesTracksIds.add(toggledTrackId);
     }
@@ -51,15 +51,25 @@ export const playlistSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOncePlaylist.fulfilled, (state, { payload }) => ({
-        ...state,
-        playlist: payload.playlist,
-        tracks: payload.tracks,
-      }))
+      .addCase(
+        fetchOncePlaylist.fulfilled,
+        (
+          state,
+          {
+            payload: {
+              playlist: { tracks, ...playlist },
+            },
+          }
+        ) => ({
+          ...state,
+          playlist,
+          playlistTracks: tracks ?? [],
+        })
+      )
       .addCase(fetchOncePlaylist.pending, (state) => ({
         ...state,
         playlist: null,
-        tracks: null,
+        playlistTracks: null,
       }))
       .addCase(fetchOncePlaylist.rejected, (state, action) => {
         console.error(action.error);
@@ -82,8 +92,11 @@ export const playlistSlice = createSlice({
       });
   },
   reducers: {
-    playTrack: (state, { payload }: PayloadAction<{ trackId: string; tracks: Track[] }>): PlaylistState => {
-      const currentPlaylistIds = payload.tracks.map((track) => track.id);
+    playTrack: (
+      state,
+      { payload }: PayloadAction<{ trackId: string; playlistTracks: PlaylistTrack[] }>
+    ): PlaylistState => {
+      const currentPlaylistIds = payload.playlistTracks.map(({ track }) => track.id);
 
       return {
         ...state,
@@ -130,7 +143,8 @@ export const playlistSlice = createSlice({
 
 // Actions
 export const { playNextTrack, playPrevTrack, playTrack } = playlistSlice.actions;
-export const playAllTrack = (tracks: Track[]) => playTrack({ tracks, trackId: tracks[0]?.id });
+export const playAllTrack = (playlistTracks: PlaylistTrack[]) =>
+  playTrack({ playlistTracks, trackId: playlistTracks[0]?.track.id });
 
 // Selector
 const selectPlaylistSlice = (state: RootState) => state.playlistSlice;
@@ -139,12 +153,15 @@ const selectPlaylistSlice = (state: RootState) => state.playlistSlice;
 export const selectPlaylistInfo = createSelector([selectPlaylistSlice], ({ playlist }) => playlist);
 
 /** Select the playlist tracks with their like status */
-export const selectTracks = createSelector(
+export const selectPlaylistTracks = createSelector(
   [selectPlaylistSlice],
-  ({ tracks, favoritesTracksIds }) =>
-    tracks?.map((track) => ({
-      ...track,
-      isLiked: favoritesTracksIds.includes(track.id),
+  ({ playlistTracks, favoritesTracksIds }) =>
+    playlistTracks?.map((playlistTrack) => ({
+      ...playlistTrack,
+      track: {
+        ...playlistTrack.track,
+        isLiked: favoritesTracksIds.includes(playlistTrack.track.id),
+      },
     })) ?? null
 );
 
@@ -152,20 +169,28 @@ export const selectTracks = createSelector(
 export const selectPlayingTrackId = createSelector([selectPlaylistSlice], ({ currentTrackId }) => currentTrackId);
 
 /** Select the currently playing track */
-export const selectPlayingTrack = createSelector([selectTracks, selectPlayingTrackId], (tracks, playingTrackId) => {
-  const playingTrack = tracks?.find((track) => track.id === playingTrackId);
+export const selectPlayingTrack = createSelector(
+  [selectPlaylistTracks, selectPlayingTrackId],
+  (playlistTracks, playingTrackId) => {
+    const playingTrack = playlistTracks?.find(({ track }) => track.id === playingTrackId)?.track;
 
-  if (playingTrackId == null || playingTrack == null) {
-    return null;
+    if (playingTrackId == null || playingTrack == null) {
+      return null;
+    }
+
+    return playingTrack;
   }
-
-  return playingTrack;
-});
+);
 
 /** Select the favorite tracks */
+// TODO use added_at for fav date
 export const selectFavoritesTracks = createSelector(
-  selectTracks,
-  (tracks) => tracks?.filter((track) => track.isLiked) ?? null
+  selectPlaylistTracks,
+  (playlistTracks) =>
+    playlistTracks
+      ?.filter(({ track }) => track.isLiked)
+      // eslint-disable-next-line camelcase
+      .map((playlistTrack) => ({ ...playlistTrack, added_at: '' })) ?? null
 );
 
 /** Select the CanSkipNext flag */

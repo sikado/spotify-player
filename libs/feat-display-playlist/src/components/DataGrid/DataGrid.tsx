@@ -1,4 +1,4 @@
-import { Track } from '@spotify-player/core';
+import { LikedPlaylistTrack } from '@spotify-player/core';
 import DataRow from '../DataRow/DataRow';
 import styles from './DataGrid.module.scss';
 
@@ -22,20 +22,26 @@ function RowPlaceholder() {
 }
 
 export interface DataGridProps {
-  tracks: Track[] | null;
+  playlistTracks: LikedPlaylistTrack[] | null;
   playingTrackId: string | null;
   onPlay: (trackId: string) => void;
   onFav: (trackId: string) => void;
 }
 
-export function DataGrid({ tracks, playingTrackId, onPlay, onFav }: DataGridProps) {
+export function DataGrid({ playlistTracks, playingTrackId, onPlay, onFav }: DataGridProps) {
   let tBody: JSX.Element | JSX.Element[] | null = null;
 
-  if (tracks && tracks.length > 0) {
-    tBody = tracks.map((track) => (
-      <DataRow key={track.id} track={track} isPlaying={playingTrackId === track.id} onPlay={onPlay} onFav={onFav} />
+  if (playlistTracks && playlistTracks.length > 0) {
+    tBody = playlistTracks.map((playlistTrack) => (
+      <DataRow
+        key={playlistTrack.track.id}
+        playlistTrack={playlistTrack}
+        isPlaying={playingTrackId === playlistTrack.track.id}
+        onPlay={onPlay}
+        onFav={onFav}
+      />
     ));
-  } else if (tracks?.length === 0) {
+  } else if (playlistTracks?.length === 0) {
     tBody = (
       <tr>
         <td colSpan={10}>Playlist vide</td>

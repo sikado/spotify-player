@@ -1,4 +1,5 @@
-const query = /* GraphQL */ `
+// eslint-disable-next-line import/prefer-default-export
+export const queryGetPlaylist = /* GraphQL */ `
   query getPlaylist {
     playlist {
       id
@@ -14,9 +15,11 @@ const query = /* GraphQL */ `
           name
           duration_ms
           artists {
+            id
             name
           }
           album {
+            id
             name
             images {
               url
@@ -27,5 +30,3 @@ const query = /* GraphQL */ `
     }
   }
 `;
-
-export default query;

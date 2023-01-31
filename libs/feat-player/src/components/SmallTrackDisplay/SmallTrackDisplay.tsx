@@ -9,8 +9,8 @@ export interface SmallTrackDisplayProps {
 }
 
 export function SmallTrackDisplay({ track, size = 'md' }: SmallTrackDisplayProps) {
-  const albumCoverSrc: string | null = track.album.imageUrl ?? null;
-  const displayArtists = track.artists.join(', ');
+  const albumCoverSrc = track.album?.images?.[0]?.url ?? null;
+  const displayArtists = track.artists?.map((a) => a?.name).join(', ');
 
   let picSize: number;
   switch (size) {
@@ -66,10 +66,12 @@ export function SmallTrackDisplay({ track, size = 'md' }: SmallTrackDisplayProps
             maxWidth: 150,
           }}
         >
-          <h5 data-cy="artists">{track.name}</h5>
-          <p>
-            <small data-cy="artists">{displayArtists}</small>
-          </p>
+          <h5>{track.name}</h5>
+          {displayArtists ? (
+            <p>
+              <small data-cy="artists">{displayArtists}</small>
+            </p>
+          ) : null}
         </div>
       </div>
     </div>

@@ -1,2 +1,3 @@
 // eslint-disable-next-line import/prefer-default-export
-export const PUBLIC_API_URI = 'https://spotify-graphql.shotgun.live/api';
+export const API_URI = '/api/graphql';
+export const GRAPHQL_FILES = 'libs/core/src/lib/graphql';

@@ -1,18 +1,22 @@
-import { Track } from '@spotify-player/core';
+/* eslint-disable camelcase */
+import { LikedPlaylistTrack } from '@spotify-player/core';
 import DataRow from './DataRow';
 
 describe('<DataRow />', () => {
   it('should render successfully', () => {
-    const track: Track = {
-      addedAt: '2013-03-10T02:00:00Z',
-      album: { name: '' },
-      artists: [''],
-      durationMs: 0,
-      id: '',
-      isLiked: false,
-      name: '',
-      previewUrl: '',
+    const playlistTrack: LikedPlaylistTrack = {
+      added_at: '',
+      track: {
+        album: { name: '', id: '' },
+        artists: [{ id: '', name: '' }],
+        duration_ms: 0,
+        id: '',
+        name: '',
+        preview_url: '',
+        href: '',
+        isLiked: true,
+      },
     };
-    cy.mount(<DataRow track={track} isPlaying={false} onFav={() => {}} onPlay={() => {}} />);
+    cy.mount(<DataRow playlistTrack={playlistTrack} isPlaying={false} onFav={() => {}} onPlay={() => {}} />);
   });
 });
