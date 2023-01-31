@@ -1,11 +1,11 @@
-import { GetPlaylistQuery, Playlist, queryGetPlaylist } from '@spotify-player/core';
+import { clientPersistedQuery, GetPlaylistQuery, Playlist } from '@spotify-player/core';
 import fetcher from '../utils/fetcher';
 
 // eslint-disable-next-line import/prefer-default-export
 export async function fetchPlaylist(): Promise<{
   playlist: Playlist;
 }> {
-  const data = await fetcher<GetPlaylistQuery>(queryGetPlaylist);
+  const data = await fetcher<GetPlaylistQuery>(clientPersistedQuery.getPlaylist);
 
   if (data.playlist == null) {
     throw new Error('Playlist unavailable');

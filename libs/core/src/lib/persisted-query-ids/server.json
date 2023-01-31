@@ -1,0 +1,3 @@
+{
+   "89076ed38414fe0f599b02bd962773eb10cb2d7b45c835b4dd72b8b7544a55ef": "query getPlaylist {\n  playlist {\n    id\n    name\n    images {\n      url\n      __typename\n    }\n    tracks {\n      added_at\n      track {\n        preview_url\n        id\n        name\n        duration_ms\n        artists {\n          id\n          name\n          __typename\n        }\n        album {\n          id\n          name\n          images {\n            url\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+}

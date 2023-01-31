@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { EnvelopArmorPlugin } from '@escape.tech/graphql-armor';
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection';
+import { usePersistedOperations } from '@graphql-yoga/plugin-persisted-operations';
 import { useResponseCache } from '@graphql-yoga/plugin-response-cache';
-import { GRAPHQL_FILES } from '@spotify-player/core';
+import { GRAPHQL_FILES, serverPersistedQuery } from '@spotify-player/core';
 import { SpotifyApiWrapper } from '@spotify-player/server-api';
 import { readFileSync } from 'fs';
 import { createSchema, createYoga } from 'graphql-yoga';
@@ -20,6 +21,11 @@ let plugins: any[] = [
   useResponseCache({
     // global cache
     session: () => null,
+  }),
+  usePersistedOperations({
+    getPersistedOperation(key: string) {
+      return serverPersistedQuery[key as keyof typeof serverPersistedQuery];
+    },
   }),
 ];
 let graphiql = true;
